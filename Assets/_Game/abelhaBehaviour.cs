@@ -2,15 +2,28 @@ using UnityEngine;
 
 public class abelhaBehaviour : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+
+    public float speed = 5f;
+    public float jumpForce = 10f;
+
+    private Rigidbody2D rb;
+
     void Start()
     {
-        
+        rb = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        // Movimento horizontal
+        float move = Input.GetAxis("Horizontal");
+        rb.linearVelocity = new Vector2(move * speed, rb.linearVelocity.y);
+
+        // Pulo com espaço
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+        }
     }
 }

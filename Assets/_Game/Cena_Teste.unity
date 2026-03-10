@@ -368,7 +368,7 @@ BoxCollider2D:
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: bdb0d97ecdcf30b44abdd6f9ae55ef93, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -525,6 +525,14 @@ PrefabInstance:
     - target: {fileID: 2070936012365339987, guid: d4aca30e2c219704bb284ee2c9912d9d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3119785453994053009, guid: d4aca30e2c219704bb284ee2c9912d9d, type: 3}
+      propertyPath: speed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3119785453994053009, guid: d4aca30e2c219704bb284ee2c9912d9d, type: 3}
+      propertyPath: jumpForce
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
