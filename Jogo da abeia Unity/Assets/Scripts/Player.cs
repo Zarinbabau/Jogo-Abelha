@@ -37,44 +37,32 @@ public class Player : MonoBehaviour
 
         liftInput = Input.GetKey(KeyCode.W);
 
-        HandleRotation();
+   
     }
 
-    void FixedUpdate()
+   void FixedUpdate()
+{
+
+    HandleRotation();
+
+    Vector2 velocity = rb.linearVelocity;
+
+    // Movimento horizontal direto (arcade e estável)
+    velocity.x = horizontalInput * moveSpeed;
+
+    // Subida estilo helicóptero
+    if (liftInput)
     {
-        Vector2 velocity = rb.linearVelocity;
-
-        // Movimento horizontal suavizado
-        velocity.x = Mathf.Lerp(
-            velocity.x,
-            horizontalInput * moveSpeed,
-            horizontalSmooth
-        );
-
-        // Subida estilo helicóptero
-        if (liftInput)
-        {
-            velocity.y += liftForce * Time.fixedDeltaTime;
-        }
-
-        // Limite vertical
-        velocity.y = Mathf.Clamp(
-            velocity.y,
-            -maxVerticalSpeed,
-            maxVerticalSpeed
-        );
-
-        rb.linearVelocity = velocity;
+        velocity.y += liftForce * Time.fixedDeltaTime;
     }
 
-    void HandleRotation()
-    {
-        float targetAngle = -horizontalInput * tiltAngle;
+    rb.linearVelocity = velocity;
+}
 
-        transform.rotation = Quaternion.Lerp(
-            transform.rotation,
-            Quaternion.Euler(0, 0, targetAngle),
-            Time.deltaTime * tiltSpeed
-        );
-    }
+
+void HandleRotation()
+{
+    float targetAngle = -horizontalInput * tiltAngle;
+    transform.rotation = Quaternion.Euler(0, 0, targetAngle);
+}
 }
