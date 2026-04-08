@@ -1,31 +1,29 @@
 using UnityEngine;
 
-public class Pólen : MonoBehaviour
+public class Polen : MonoBehaviour
 {
     public int Score;
+    private Vector3 startPosition;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        startPosition = transform.position;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.CompareTag("Player"))
         {
-
             GameController.instance.TotalScore += Score;
             GameController.instance.UpdateScoreText();
 
-            Destroy(gameObject);
-
+            gameObject.SetActive(false); // 🔥 em vez de Destroy
         }
+    }
+
+    public void Respawn()
+    {
+        transform.position = startPosition;
+        gameObject.SetActive(true);
     }
 }

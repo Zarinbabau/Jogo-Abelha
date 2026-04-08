@@ -36,5 +36,7 @@ public class PlayerRespawn : MonoBehaviour
 
         // Vai para o SpawnPoint
         transform.position = spawnPoint.position;
+
+        GameController.instance.ResetGame();
     }
 }

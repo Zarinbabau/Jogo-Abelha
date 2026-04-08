@@ -19,4 +19,19 @@ public class GameController : MonoBehaviour
         scoreText.text = TotalScore.ToString() + "x";
     }
 
+public void ResetGame()
+{
+    TotalScore = 0;
+    UpdateScoreText();
+
+    Polen[] moedas = FindObjectsByType<Polen>(
+        FindObjectsInactive.Include,
+        FindObjectsSortMode.None
+    );
+
+    foreach (Polen moeda in moedas)
+    {
+        moeda.Respawn();
+    }
+}
 }
