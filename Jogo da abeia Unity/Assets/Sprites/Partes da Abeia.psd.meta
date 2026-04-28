@@ -1,0 +1,351 @@
+fileFormatVersion: 2
+guid: 2047037a831d75a48b0cfe63b1571651
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -4997123509158838384
+    second: Partes da Abeia_0
+  - first:
+      213: 6213650019886764935
+    second: Partes da Abeia_1
+  - first:
+      213: 547284526311001744
+    second: Partes da Abeia_2
+  - first:
+      213: -8709872107506280706
+    second: Partes da Abeia_3
+  - first:
+      213: -7883817047280860100
+    second: Partes da Abeia_4
+  - first:
+      213: -8604046954802377286
+    second: Partes da Abeia_5
+  - first:
+      213: -554145136797297438
+    second: Partes da Abeia_6
+  - first:
+      213: 7494118152992783215
+    second: Partes da Abeia_7
+  - first:
+      213: 4402996423379434374
+    second: Partes da Abeia_8
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Partes da Abeia_0
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 872
+        width: 236
+        height: 387
+      alignment: 9
+      pivot: {x: 0.897857, y: 0.10038911}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 09f75d1f4a6a6aab0800000000000000
+      internalID: -4997123509158838384
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Partes da Abeia_1
+      rect:
+        serializedVersion: 2
+        x: 271
+        y: 865
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 78313f195c15b3650800000000000000
+      internalID: 6213650019886764935
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Partes da Abeia_2
+      rect:
+        serializedVersion: 2
+        x: 346
+        y: 729
+        width: 363
+        height: 524
+      alignment: 9
+      pivot: {x: 0.38588443, y: 0.1785163}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 09ec5d58068589700800000000000000
+      internalID: 547284526311001744
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Partes da Abeia_3
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 589
+        width: 406
+        height: 277
+      alignment: 9
+      pivot: {x: 0.9149195, y: 0.13112225}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ef651011771502780800000000000000
+      internalID: -8709872107506280706
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Partes da Abeia_4
+      rect:
+        serializedVersion: 2
+        x: 471
+        y: 551
+        width: 234
+        height: 178
+      alignment: 9
+      pivot: {x: 0.08694067, y: 0.84132093}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c34c7ae6a2e079290800000000000000
+      internalID: -7883817047280860100
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Partes da Abeia_5
+      rect:
+        serializedVersion: 2
+        x: 398
+        y: 374
+        width: 234
+        height: 175
+      alignment: 9
+      pivot: {x: 0.067452714, y: 0.8798301}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: abd093c71e8489880800000000000000
+      internalID: -8604046954802377286
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Partes da Abeia_6
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 227
+        width: 168
+        height: 139
+      alignment: 9
+      pivot: {x: 0.8451994, y: 0.7582786}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2e4df2f1fe74f48f0800000000000000
+      internalID: -554145136797297438
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Partes da Abeia_7
+      rect:
+        serializedVersion: 2
+        x: 281
+        y: 29
+        width: 94
+        height: 313
+      alignment: 9
+      pivot: {x: 0.33928892, y: 0.9585154}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f6bf0fd21c4700860800000000000000
+      internalID: 7494118152992783215
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Partes da Abeia_8
+      rect:
+        serializedVersion: 2
+        x: 430
+        y: 21
+        width: 94
+        height: 313
+      alignment: 9
+      pivot: {x: 0.31792888, y: 0.9374364}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 68bb8d24be59a1d30800000000000000
+      internalID: 4402996423379434374
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 115c5434a7db9344a99939f983d8df98
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Partes da Abeia_0: -4997123509158838384
+      Partes da Abeia_1: 6213650019886764935
+      Partes da Abeia_2: 547284526311001744
+      Partes da Abeia_3: -8709872107506280706
+      Partes da Abeia_4: -7883817047280860100
+      Partes da Abeia_5: -8604046954802377286
+      Partes da Abeia_6: -554145136797297438
+      Partes da Abeia_7: 7494118152992783215
+      Partes da Abeia_8: 4402996423379434374
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
