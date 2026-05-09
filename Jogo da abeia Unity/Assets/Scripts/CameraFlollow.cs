@@ -4,7 +4,7 @@ public class CameraFollow : MonoBehaviour
 {
     public Transform target;
 
-    public float fixedY = 2f;     // Y travado
+    public float fixedY = 2f;     // Y travadoz
     public float minX = 0f;       // ponto inicial
     public float maxX = 20f;      // limite m�ximo
 
