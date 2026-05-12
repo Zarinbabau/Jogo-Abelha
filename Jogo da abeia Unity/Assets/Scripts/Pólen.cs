@@ -2,8 +2,11 @@ using UnityEngine;
 
 public class Polen : MonoBehaviour
 {
-    public int Score;
+    public int Score = 1;
+
     private Vector3 startPosition;
+
+    private bool entregue = false;
 
     void Start()
     {
@@ -12,18 +15,38 @@ public class Polen : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (entregue)
+            return;
+
         if (collision.CompareTag("Player"))
         {
-            GameController.instance.TotalScore += Score;
-            GameController.instance.UpdateScoreText();
+            Player player =
+                collision.GetComponent<Player>();
 
-            gameObject.SetActive(false); // 🔥 em vez de Destroy
+            if (player != null &&
+                player.PodeColetar())
+            {
+                player.ColetarPolen(this);
+
+                gameObject.SetActive(false);
+            }
         }
+    }
+
+    public void Entregar()
+    {
+        entregue = true;
+
+        gameObject.SetActive(false);
     }
 
     public void Respawn()
     {
+        if (entregue)
+            return;
+
         transform.position = startPosition;
+
         gameObject.SetActive(true);
     }
 }

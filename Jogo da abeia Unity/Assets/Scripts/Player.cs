@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class Player : MonoBehaviour
@@ -8,17 +9,19 @@ public class Player : MonoBehaviour
     [Header("Movimento")]
     public float moveSpeed = 6f;
     public float liftForce = 50f;
-    public float maxVerticalSpeed = 25f;
 
-    [Header("Suavização")]
-    public float horizontalSmooth = 0.2f;
-
-    [Header("Rotação Helicóptero")]
+    [Header("Rotação")]
     public float tiltAngle = 25f;
-    public float tiltSpeed = 5f;
+
+    [Header("Inventário")]
+    public int capacidadeMaxima = 3;
 
     float horizontalInput;
     bool liftInput;
+
+    // Lista de pólens carregados
+    private List<Polen> polensCarregados =
+        new List<Polen>();
 
     void Awake()
     {
@@ -36,33 +39,78 @@ public class Player : MonoBehaviour
             horizontalInput = 1f;
 
         liftInput = Input.GetKey(KeyCode.W);
-
-   
     }
 
-   void FixedUpdate()
-{
-
-    HandleRotation();
-
-    Vector2 velocity = rb.linearVelocity;
-
-    // Movimento horizontal direto (arcade e estável)
-    velocity.x = horizontalInput * moveSpeed;
-
-    // Subida estilo helicóptero
-    if (liftInput)
+    void FixedUpdate()
     {
-        velocity.y += liftForce * Time.fixedDeltaTime;
+        HandleRotation();
+
+        Vector2 velocity = rb.linearVelocity;
+
+        velocity.x = horizontalInput * moveSpeed;
+
+        if (liftInput)
+        {
+            velocity.y += liftForce * Time.fixedDeltaTime;
+        }
+
+        rb.linearVelocity = velocity;
     }
 
-    rb.linearVelocity = velocity;
-}
+    void HandleRotation()
+    {
+        float targetAngle = -horizontalInput * tiltAngle;
 
+        transform.rotation =
+            Quaternion.Euler(0, 0, targetAngle);
+    }
 
-void HandleRotation()
-{
-    float targetAngle = -horizontalInput * tiltAngle;
-    transform.rotation = Quaternion.Euler(0, 0, targetAngle);
-}
+    // =========================
+    // PÓLEN
+    // =========================
+
+    public bool PodeColetar()
+    {
+        return polensCarregados.Count < capacidadeMaxima;
+    }
+
+    public void ColetarPolen(Polen polen)
+    {
+        if (!PodeColetar())
+            return;
+
+        polensCarregados.Add(polen);
+    }
+
+    public void EntregarPolen()
+    {
+        if (polensCarregados.Count <= 0)
+            return;
+
+        int pontosGanhos = 0;
+
+        foreach (Polen polen in polensCarregados)
+        {
+            polen.Entregar();
+
+            pontosGanhos += polen.Score;
+        }
+
+        GameController.instance.AddScore(pontosGanhos);
+
+        polensCarregados.Clear();
+    }
+
+    public void DroparPolens()
+    {
+        if (polensCarregados.Count <= 0)
+            return;
+
+        foreach (Polen polen in polensCarregados)
+        {
+            polen.Respawn();
+        }
+
+        polensCarregados.Clear();
+    }
 }

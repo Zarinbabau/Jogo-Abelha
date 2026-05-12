@@ -6,9 +6,13 @@ public class PlayerRespawn : MonoBehaviour
 
     private Rigidbody2D rb;
 
+    private Player player;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+
+        player = GetComponent<Player>();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -31,12 +35,16 @@ public class PlayerRespawn : MonoBehaviour
 
     void Respawn()
     {
+        // Solta o pólen atual
+        if (player != null)
+        {
+            player.DroparPolens();
+        }
+
         // Zera velocidade
         rb.linearVelocity = Vector2.zero;
 
-        // Vai para o SpawnPoint
+        // Volta ao spawn
         transform.position = spawnPoint.position;
-
-        GameController.instance.ResetGame();
     }
 }
