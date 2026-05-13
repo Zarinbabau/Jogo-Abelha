@@ -16,6 +16,10 @@ public int jugID;
 
     GameManager gm;
 
+void Update(){
+UpdateVisual()
+
+}
     void Start()
     {
         gm = FindFirstObjectByType<GameManager>();

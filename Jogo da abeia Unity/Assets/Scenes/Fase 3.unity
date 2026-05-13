@@ -536,6 +536,10 @@ PrefabInstance:
       propertyPath: jugID
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1055052094214868495, guid: 191a0e712d5a04480b9cefadad3abbeb, type: 3}
+      propertyPath: capacity
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -919,6 +923,10 @@ PrefabInstance:
     - target: {fileID: 1055052094214868495, guid: 191a0e712d5a04480b9cefadad3abbeb, type: 3}
       propertyPath: jugID
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1055052094214868495, guid: 191a0e712d5a04480b9cefadad3abbeb, type: 3}
+      propertyPath: capacity
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1055052094214868495, guid: 191a0e712d5a04480b9cefadad3abbeb, type: 3}
       propertyPath: m_Enabled
@@ -1467,6 +1475,14 @@ PrefabInstance:
     - target: {fileID: 1055052094214868495, guid: 191a0e712d5a04480b9cefadad3abbeb, type: 3}
       propertyPath: jugID
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1055052094214868495, guid: 191a0e712d5a04480b9cefadad3abbeb, type: 3}
+      propertyPath: capacity
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1055052094214868495, guid: 191a0e712d5a04480b9cefadad3abbeb, type: 3}
+      propertyPath: currentVolume
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
