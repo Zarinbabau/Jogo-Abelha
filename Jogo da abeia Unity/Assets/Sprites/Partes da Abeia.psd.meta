@@ -132,7 +132,7 @@ TextureImporter:
         width: 236
         height: 387
       alignment: 9
-      pivot: {x: 0.897857, y: 0.10038911}
+      pivot: {x: 0.89291406, y: 0.0702461}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -172,11 +172,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 346
-        y: 729
-        width: 363
-        height: 524
+        y: 745
+        width: 370
+        height: 522
       alignment: 9
-      pivot: {x: 0.38588443, y: 0.1785163}
+      pivot: {x: 0.3775168, y: 0.14069551}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -193,12 +193,12 @@ TextureImporter:
       name: Partes da Abeia_3
       rect:
         serializedVersion: 2
-        x: 10
-        y: 589
+        x: 18
+        y: 555
         width: 406
         height: 277
       alignment: 9
-      pivot: {x: 0.9149195, y: 0.13112225}
+      pivot: {x: 0.909173, y: 0.105854355}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -212,37 +212,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Partes da Abeia_4
-      rect:
-        serializedVersion: 2
-        x: 471
-        y: 551
-        width: 234
-        height: 178
-      alignment: 9
-      pivot: {x: 0.08694067, y: 0.84132093}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: c34c7ae6a2e079290800000000000000
-      internalID: -7883817047280860100
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: Partes da Abeia_5
       rect:
         serializedVersion: 2
-        x: 398
-        y: 374
-        width: 234
-        height: 175
+        x: 433
+        y: 337
+        width: 255
+        height: 187
       alignment: 9
-      pivot: {x: 0.067452714, y: 0.8798301}
+      pivot: {x: 0.108624145, y: 0.84863937}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -295,28 +273,6 @@ TextureImporter:
       bones: []
       spriteID: f6bf0fd21c4700860800000000000000
       internalID: 7494118152992783215
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Partes da Abeia_8
-      rect:
-        serializedVersion: 2
-        x: 430
-        y: 21
-        width: 94
-        height: 313
-      alignment: 9
-      pivot: {x: 0.31792888, y: 0.9374364}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 68bb8d24be59a1d30800000000000000
-      internalID: 4402996423379434374
       vertices: []
       indices: 
       edges: []
