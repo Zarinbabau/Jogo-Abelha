@@ -1,21 +1,17 @@
 using UnityEngine;
 
-public class CointainerTest : MonoBehaviour
-{
+//public class CointainerTest : MonoBehaviour
+//{
 
 
 
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    //void Start() {   }
 
     // Update is called once per frame
-    void Update()
-    {
+    //void Update() {
 
 //sistema de selecionar pote
 // 0 - 0 - 0 - 0 - 0(vazio) 
@@ -25,12 +21,10 @@ public class CointainerTest : MonoBehaviour
 //reseta}
 
 
-if aperta enter pote a, checa o pote e permite selecionar outro pote before
-if aperta enter pote a e pote b selcionados e determianda condicao:
-if pote a > B subtraia a-B
+// if aperta enter pote a, checa o pote e permite selecionar outro pote before
+// if aperta enter pote a e pote b selcionados e determianda condicao:
+// if pote a > B subtraia a-B
 
-else pote b<a 
+//else pote b<a 
 
 
-    }
-}
