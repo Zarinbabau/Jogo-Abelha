@@ -3,34 +3,17 @@ using TMPro;
 
 public class Jug : MonoBehaviour
 {
+void Update(){
+UpdateVisual();
 
+}
 
-public int jugID;
+    public int jugID;
 
-    [Header("Valores")]
     public int capacity;
     public int currentVolume;
 
-    [Header("UI")]
     public TMP_Text volumeText;
-
-    GameManager gm;
-
-void Update(){
-UpdateVisual()
-
-}
-    void Start()
-    {
-        gm = FindFirstObjectByType<GameManager>();
-
-        UpdateVisual();
-    }
-
-    void OnMouseDown()
-    {
-        gm.SelectJug(this);
-    }
 
     public void UpdateVisual()
     {

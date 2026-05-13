@@ -1,23 +1,21 @@
 using UnityEngine;
+using System.Collections;
 
 public class CointainerTest : MonoBehaviour
 {
-
-
-//tenho 3 objetos na ui que sao 3 imagens, precisod e um sistema quye usa as setas do teclado esquerda direta para selecionar estes objetos comecando com o 1.
-//preca ativar o filho do objeto selecioando edesativar o filho dele quando seleciona ou sai dele
-
+    public bool MoverPotes = true;
 
     [Header("Objetos selecionáveis")]
     public GameObject[] options;
 
+    [Header("Resposta correta")]
+    public int[] targetState;
+
     int currentIndex = 0;
 
-int volumeAtual;
+    Jug selectedJug = null;
 
-public int atualIDobjetoSelecionado;
-public GameObject objetoSelecionado;
-
+    bool hasWon = false;
 
     void Start()
     {
@@ -26,93 +24,147 @@ public GameObject objetoSelecionado;
 
     void Update()
     {
+        if (!MoverPotes) return;
 
+        // =====================================
+        // CONFIRMA SELEÇÃO / TRANSFERÊNCIA
+        // =====================================
 
-if(Input.GetKeyDown(KeyCode.Space)){
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Jug currentJug =
+                options[currentIndex]
+                .GetComponent<Jug>();
 
+            if (selectedJug == null)
+            {
+                selectedJug = currentJug;
 
-//faz a acao de subtracao e atualizao dos valores
+                Debug.Log("Origem: " + selectedJug.jugID);
+            }
+            else
+            {
+                if (selectedJug == currentJug)
+                {
+                    selectedJug = null;
+                    return;
+                }
 
-}
+                TransferLiquid(selectedJug, currentJug);
 
+                selectedJug = null;
+
+                CheckVictory();
+            }
+        }
+
+        // =====================================
         // DIREITA
+        // =====================================
+
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             currentIndex++;
 
-            // loop
             if (currentIndex >= options.Length)
-            {
                 currentIndex = 0;
-            }
 
             UpdateSelection();
         }
 
+        // =====================================
         // ESQUERDA
+        // =====================================
+
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             currentIndex--;
 
-            // loop
             if (currentIndex < 0)
-            {
                 currentIndex = options.Length - 1;
-            }
 
             UpdateSelection();
         }
     }
 
-    // ==========================================
-    // ATUALIZA SELEÇÃO
-    // ==========================================
+    // =====================================
+    // TRANSFERÊNCIA
+    // =====================================
 
-    void UpdateSelection()
+    void TransferLiquid(Jug from, Jug to)
     {
+        int freeSpace = to.capacity - to.currentVolume;
 
-Debug.Log(currentIndex);
+        int amount = Mathf.Min(from.currentVolume, freeSpace);
 
-objetoSelecionado = options[currentIndex];
-atualIDobjetoSelecionado = objetoSelecionado.GetComponent<Jug>().jugID;
-//
+        if (amount <= 0)
+        {
+            Debug.Log("Movimento inválido");
+            return;
+        }
 
+        from.currentVolume -= amount;
+        to.currentVolume += amount;
+
+        from.UpdateVisual();
+        to.UpdateVisual();
+
+        Debug.Log("Transferiu " + amount + "L");
+    }
+
+    // =====================================
+    // VITÓRIA
+    // =====================================
+
+    void CheckVictory()
+    {
+        if (hasWon) return;
 
         for (int i = 0; i < options.Length; i++)
         {
-            // pega o primeiro filho
-            Transform child =
-                options[i].transform.GetChild(0);
+            Jug j = options[i].GetComponent<Jug>();
 
-            // ativa apenas o selecionado
+            if (j.currentVolume != targetState[i])
+                return;
+        }
+
+        StartCoroutine(VictoryRoutine());
+    }
+
+    // =====================================
+    // CORROTINA DE VITÓRIA
+    // =====================================
+
+    IEnumerator VictoryRoutine()
+    {
+        hasWon = true;
+        MoverPotes = false;
+
+        Debug.Log("VITÓRIA!");
+
+        yield return new WaitForSeconds(1.5f);
+
+        // aqui você pode:
+        // - carregar próxima fase
+        // - ou resetar
+
+        MoverPotes = true;
+        hasWon = false;
+
+        Debug.Log("Jogo liberado novamente");
+    }
+
+    // =====================================
+    // VISUAL SELEÇÃO
+    // =====================================
+
+    void UpdateSelection()
+    {
+        for (int i = 0; i < options.Length; i++)
+        {
+            Transform child = options[i].transform.GetChild(0);
+
             child.gameObject.SetActive(i == currentIndex);
         }
     }
-
 }
-
-
-
-
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    //void Start() {   }
-
-    // Update is called once per frame
-    //void Update() {
-
-//sistema de selecionar pote
-// 0 - 0 - 0 - 0 - 0(vazio) 
-
-//if (aperta x){
-
-//reseta}
-
-
-// if aperta enter pote a, checa o pote e permite selecionar outro pote before
-// if aperta enter pote a e pote b selcionados e determianda condicao:
-// if pote a > B subtraia a-B
-
-//else pote b<a 
-
-
