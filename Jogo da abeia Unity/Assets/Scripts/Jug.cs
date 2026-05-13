@@ -20,4 +20,14 @@ UpdateVisual();
         volumeText.text =
             currentVolume + "/" + capacity;
     }
+
+
+
+void valoresAleatorios(){
+
+
+    
+
+}
+
 }
