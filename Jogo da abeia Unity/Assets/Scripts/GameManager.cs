@@ -1,75 +1,274 @@
 using UnityEngine;
 using TMPro;
 
-public class GameManagement : MonoBehaviour
+/// <summary>
+/// GAME MANAGER - WATER JUG GAME
+/// 
+/// FUNÇÕES:
+/// - Recebe fases do WaterJugGenerator
+/// - Aplica valores nos vasos da cena
+/// - Atualiza os textos dos prefabs
+/// - Mostra objetivo no formato X,Y,Z
+/// - Permite transferências
+/// - Conta movimentos
+/// - Detecta vitória
+/// - Troca de fases
+/// </summary>
+
+public class GameManager : MonoBehaviour
 {
-    [Header("Provetas (IDs 0 a 4)")]
-    public GameObject[] provetas;
+    [Header("Referências")]
+    public WaterJugGenerator generator;
 
-    [Header("Arte associada a cada proveta")]
-    public GameObject[] artes;
+    [Header("Vasos da cena")]
+    public Jug[] jugs;
 
-    [Header("Valores das provetas")]
-    public int[] valores = { 1, 3, 5, 7, 4 };
+    [Header("UI")]
+    public TMP_Text objectiveText;
+    public TMP_Text moveText;
+    public TMP_Text phaseText;
+    public TMP_Text resultText;
 
-    private int selectedIndex = 0;
+    // =====================================================
+    // CONTROLE
+    // =====================================================
+
+    int currentPhase = 0;
+
+    WaterJugGenerator.PuzzleLevel currentLevel;
+
+    Jug selectedJug;
+
+    int moveCount = 0;
+
+    // =====================================================
+    // START
+    // =====================================================
 
     void Start()
-    {
-        UpdateSelection();
-    }
+{
+    generator.GenerateAllLevels();
 
-    void Update()
-    {
-        HandleInput();
-    }
+    LoadPhase(0);
+}
 
-    void HandleInput()
+    // =====================================================
+    // CARREGA FASE
+    // =====================================================
+
+    void LoadPhase(int phaseIndex)
     {
-        if (Input.GetKeyDown(KeyCode.A))
+        currentPhase = phaseIndex;
+
+        currentLevel =
+            generator.generatedLevels[phaseIndex];
+
+        moveCount = 0;
+
+        selectedJug = null;
+
+        resultText.text = "";
+
+        // =========================================
+        // APLICA VALORES NOS PREFABS
+        // =========================================
+
+        for (int i = 0; i < jugs.Length; i++)
         {
-            selectedIndex--;
-            if (selectedIndex < 0)
-                selectedIndex = provetas.Length - 1;
-
-            UpdateSelection();
-        }
-
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            selectedIndex++;
-            if (selectedIndex >= provetas.Length)
-                selectedIndex = 0;
-
-            UpdateSelection();
-        }
-    }
-
-    void UpdateSelection()
-    {
-        for (int i = 0; i < provetas.Length; i++)
-        {
-            bool isSelected = (i == selectedIndex);
-
-            // ativa arte
-            if (artes != null && i < artes.Length)
-                artes[i].SetActive(isSelected);
-
-            // atualiza texto dentro do prefab
-            TMP_Text txt = provetas[i].GetComponentInChildren<TMP_Text>();
-
-            if (txt != null)
+            // desativa vasos extras
+            if (i >= currentLevel.capacities.Length)
             {
-                txt.text = valores[i].ToString();
+                jugs[i].gameObject.SetActive(false);
+                continue;
             }
 
-            // opcional: destacar proveta selecionada
-            provetas[i].transform.localScale = isSelected ? Vector3.one * 1.1f : Vector3.one;
+            jugs[i].gameObject.SetActive(true);
+
+            // capacidade do vaso
+            jugs[i].capacity =
+                currentLevel.capacities[i];
+
+            // líquido atual
+            jugs[i].currentVolume =
+                currentLevel.startState[i];
+
+            // atualiza texto do prefab
+            jugs[i].UpdateVisual();
         }
+
+        UpdateUI();
     }
 
-    public int GetSelectedValue()
+    // =====================================================
+    // SELEÇÃO DOS VASOS
+    // =====================================================
+
+    public void SelectJug(Jug jug)
     {
-        return valores[selectedIndex];
+        // primeira seleção
+        if (selectedJug == null)
+        {
+            selectedJug = jug;
+            return;
+        }
+
+        // desmarca se clicar no mesmo
+        if (selectedJug == jug)
+        {
+            selectedJug = null;
+            return;
+        }
+
+        // transfere líquido
+        Transfer(selectedJug, jug);
+
+        // limpa seleção
+        selectedJug = null;
+    }
+
+    // =====================================================
+    // TRANSFERÊNCIA
+    // =====================================================
+
+    void Transfer(Jug from, Jug to)
+    {
+        int free =
+            to.capacity - to.currentVolume;
+
+        int amount =
+            Mathf.Min(
+                from.currentVolume,
+                free
+            );
+
+        // impede movimento inválido
+        if (amount <= 0)
+            return;
+
+        from.currentVolume -= amount;
+        to.currentVolume += amount;
+
+        // atualiza textos individuais
+        from.UpdateVisual();
+        to.UpdateVisual();
+
+        moveCount++;
+
+        UpdateUI();
+
+        CheckWin();
+    }
+
+    // =====================================================
+    // UI
+    // =====================================================
+
+    void UpdateUI()
+    {
+        moveText.text =
+            "Movimentos: " + moveCount;
+
+        phaseText.text =
+            "Fase " + (currentPhase + 1);
+
+        objectiveText.text =
+            BuildObjectiveText();
+    }
+
+    // =====================================================
+    // TEXTO OBJETIVO
+    // FORMATO:
+    // 5,5,0
+    // =====================================================
+
+    string BuildObjectiveText()
+    {
+        return
+            "Objetivo:\n" +
+            string.Join(
+                ", ",
+                currentLevel.targetState
+            );
+    }
+
+    // =====================================================
+    // CHECA VITÓRIA
+    // =====================================================
+
+    void CheckWin()
+    {
+        for (int i = 0; i < currentLevel.targetState.Length; i++)
+        {
+            if (
+                jugs[i].currentVolume !=
+                currentLevel.targetState[i]
+            )
+            {
+                return;
+            }
+        }
+
+        Win();
+    }
+
+    // =====================================================
+    // WIN
+    // =====================================================
+
+    void Win()
+    {
+        string medal = "";
+
+        if (moveCount <= currentLevel.minimumMoves)
+        {
+            medal = "OURO";
+        }
+        else if (moveCount <= currentLevel.mediumMoves)
+        {
+            medal = "PRATA";
+        }
+        else
+        {
+            medal = "BRONZE";
+        }
+
+        resultText.text =
+            "FASE COMPLETA!\n" +
+            medal +
+            "\nMovimentos: " +
+            moveCount;
+
+        Invoke(nameof(NextPhase), 2f);
+    }
+
+    // =====================================================
+    // PRÓXIMA FASE
+    // =====================================================
+
+    void NextPhase()
+    {
+        currentPhase++;
+
+        // terminou todas as fases
+        if (
+            currentPhase >=
+            generator.generatedLevels.Count
+        )
+        {
+            resultText.text =
+                "VOCÊ COMPLETOU TODAS AS FASES!";
+            return;
+        }
+
+        LoadPhase(currentPhase);
+    }
+
+    // =====================================================
+    // RESET
+    // =====================================================
+
+    public void ResetPhase()
+    {
+        LoadPhase(currentPhase);
     }
 }
