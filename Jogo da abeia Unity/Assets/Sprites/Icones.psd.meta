@@ -123,10 +123,10 @@ TextureImporter:
         serializedVersion: 2
         x: 35
         y: 1005
-        width: 95
+        width: 261
         height: 268
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -143,12 +143,12 @@ TextureImporter:
       name: Icones_1
       rect:
         serializedVersion: 2
-        x: 195
-        y: 1005
-        width: 96
-        height: 269
+        x: 304
+        y: 443
+        width: 397
+        height: 352
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -170,7 +170,7 @@ TextureImporter:
         width: 170
         height: 278
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -192,7 +192,7 @@ TextureImporter:
         width: 320
         height: 79
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -209,12 +209,12 @@ TextureImporter:
       name: Icones_4
       rect:
         serializedVersion: 2
-        x: 33
-        y: 740
-        width: 320
-        height: 79
+        x: 39
+        y: 611
+        width: 188
+        height: 181
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -231,12 +231,12 @@ TextureImporter:
       name: Icones_5
       rect:
         serializedVersion: 2
-        x: 33
-        y: 631
-        width: 320
-        height: 79
+        x: 39
+        y: 379
+        width: 186
+        height: 187
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -253,12 +253,12 @@ TextureImporter:
       name: Icones_6
       rect:
         serializedVersion: 2
-        x: 10
-        y: 7
-        width: 456
-        height: 437
+        x: 52
+        y: 128
+        width: 197
+        height: 146
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -271,11 +271,33 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Icones_7
+      rect:
+        serializedVersion: 2
+        x: 289
+        y: 40
+        width: 399
+        height: 352
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c7345137a172a4748b174cac4eaf157b
+      internalID: 2094445130
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: f3b197465ef46ac4a966bdaca9cb165d
     internalID: 0
     vertices: []
     indices: 
@@ -292,6 +314,7 @@ TextureImporter:
       Icones_4: -7486471757834963442
       Icones_5: -6204373592038431564
       Icones_6: -5523385716482863579
+      Icones_7: 2094445130
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
