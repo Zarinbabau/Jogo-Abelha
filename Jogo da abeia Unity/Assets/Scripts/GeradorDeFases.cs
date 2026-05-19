@@ -6,305 +6,132 @@ public class GeradorDeFases : MonoBehaviour
     [System.Serializable]
     public class PuzzleLevel
     {
-        [Header("Configuração Manual")]
-
-        // Capacidades máximas dos potes
         public int[] capacities;
-
-        // Estado inicial
         public int[] startState;
-
-        // Objetivo final
         public int[] targetState;
 
-        [Header("Calculado Automaticamente")]
-
-        // Menor quantidade possível de movimentos
         public int minimumMoves;
-
-        // Limite de movimentos do jogador
         public int maxMoves;
-
-        // Dificuldade automática
-        public string difficulty;
     }
 
-    [Header("GameManager")]
     public CointainerTest gameManager;
 
-    [Header("Fases criadas no Inspector")]
-    public List<PuzzleLevel> generatedLevels =
-        new List<PuzzleLevel>();
+    public List<PuzzleLevel> levels = new();
 
-    [Header("Fase atual")]
     public int currentLevelIndex = 0;
-
-    // =========================================================
-    // START
-    // =========================================================
 
     void Start()
     {
-        CalcularDadosDasFases();
-
+        Calcular();
         ApplyLevel(currentLevelIndex);
     }
 
     // =========================================================
-    // CALCULA DADOS AUTOMÁTICOS
+    // CALCULA MOVIMENTOS REAIS (BFS)
     // =========================================================
 
-    void CalcularDadosDasFases()
+    void Calcular()
     {
-        foreach (PuzzleLevel level in generatedLevels)
+        foreach (var level in levels)
         {
-            // =====================================
-            // MOVIMENTOS MÍNIMOS
-            // =====================================
-
             level.minimumMoves =
-                SolveMinimumMoves(
-                    level.capacities,
-                    level.startState,
-                    level.targetState
-                );
+                Solve(level.capacities, level.startState, level.targetState);
 
-            // =====================================
-            // MAX MOVES
-            // =====================================
-
-            level.maxMoves =
-                level.minimumMoves + 4;
-
-            // =====================================
-            // DIFICULDADE
-            // =====================================
-
-            if (level.minimumMoves <= 4)
-            {
-                level.difficulty = "Fácil";
-            }
-            else if (level.minimumMoves <= 7)
-            {
-                level.difficulty = "Médio";
-            }
-            else
-            {
-                level.difficulty = "Difícil";
-            }
+            level.maxMoves = level.minimumMoves + 3;
         }
     }
 
     // =========================================================
-    // APLICA A FASE
+    // APLICA FASE
     // =========================================================
 
     public void ApplyLevel(int index)
     {
-        if (gameManager == null)
+        currentLevelIndex = index;
+
+        PuzzleLevel level = levels[index];
+
+        gameManager.targetState = level.targetState;
+        gameManager.maxMovimentos = level.maxMoves;
+
+        for (int i = 0; i < gameManager.options.Length; i++)
         {
-            Debug.LogError(
-                "GameManager não atribuído."
-            );
+            Jug j = gameManager.options[i].GetComponent<Jug>();
 
-            return;
+            j.capacity = level.capacities[i];
+            j.currentVolume = level.startState[i];
+            j.UpdateVisual();
         }
-
-        PuzzleLevel level =
-            generatedLevels[index];
-
-        // =====================================
-        // TARGET DA VITÓRIA
-        // =====================================
-
-        gameManager.targetState =
-            level.targetState;
-
-        // =====================================
-        // MOVIMENTOS
-        // =====================================
-
-        gameManager.maxMovimentos =
-            level.maxMoves;
-
-        // =====================================
-        // DIFICULDADE
-        // =====================================
-
-        gameManager.dificuldade =
-            level.difficulty;
-
-        // =====================================
-        // APLICA NOS JARROS
-        // =====================================
-
-        for (int i = 0;
-             i < gameManager.options.Length;
-             i++)
-        {
-            Jug jug =
-                gameManager.options[i]
-                .GetComponent<Jug>();
-
-            jug.capacity =
-                level.capacities[i];
-
-            jug.currentVolume =
-                level.startState[i];
-
-            jug.UpdateVisual();
-        }
-
-        // =====================================
-        // ATUALIZA UI
-        // =====================================
 
         gameManager.AtualizarUIFase();
-
         gameManager.AtualizarMovimentos();
     }
 
     // =========================================================
-    // SOLVER BFS
-    // CALCULA MENOR NÚMERO DE MOVIMENTOS
+    // BFS SOLVER REAL
     // =========================================================
 
-    int SolveMinimumMoves(
-        int[] capacities,
-        int[] start,
-        int[] target
-    )
+    int Solve(int[] cap, int[] start, int[] target)
     {
-        Queue<StateNode> queue =
-            new Queue<StateNode>();
+        Queue<StateNode> queue = new Queue<StateNode>();
+        HashSet<string> visited = new HashSet<string>();
 
-        HashSet<string> visited =
-            new HashSet<string>();
-
-        StateNode root =
-            new StateNode(start, 0);
-
-        queue.Enqueue(root);
-
-        visited.Add(
-            GetStateKey(start)
-        );
+        queue.Enqueue(new StateNode(start, 0));
+        visited.Add(GetKey(start));
 
         while (queue.Count > 0)
         {
-            StateNode current =
-                queue.Dequeue();
+            StateNode current = queue.Dequeue();
 
-            // =====================================
-            // ENCONTROU SOLUÇÃO
-            // =====================================
-
-            if (CompareStates(
-                current.state,
-                target))
-            {
+            if (IsGoal(current.state, target))
                 return current.moves;
-            }
 
-            // =====================================
-            // TESTA TODAS TRANSFERÊNCIAS
-            // =====================================
-
-            for (int from = 0;
-                 from < capacities.Length;
-                 from++)
+            for (int from = 0; from < cap.Length; from++)
             {
-                for (int to = 0;
-                     to < capacities.Length;
-                     to++)
+                for (int to = 0; to < cap.Length; to++)
                 {
-                    if (from == to)
-                        continue;
+                    if (from == to) continue;
 
-                    int[] next =
-                        Transfer(
-                            current.state,
-                            capacities,
-                            from,
-                            to
-                        );
+                    int[] next = Transfer(current.state, cap, from, to);
 
-                    string key =
-                        GetStateKey(next);
+                    string key = GetKey(next);
 
                     if (!visited.Contains(key))
                     {
                         visited.Add(key);
-
-                        queue.Enqueue(
-                            new StateNode(
-                                next,
-                                current.moves + 1
-                            )
-                        );
+                        queue.Enqueue(new StateNode(next, current.moves + 1));
                     }
                 }
             }
         }
 
-        // =====================================
-        // IMPOSSÍVEL
-        // =====================================
-
         return -1;
     }
 
     // =========================================================
-    // COMPARA ESTADOS
+    // UTILITÁRIOS
     // =========================================================
 
-    bool CompareStates(
-        int[] a,
-        int[] b
-    )
+    bool IsGoal(int[] a, int[] b)
     {
         for (int i = 0; i < a.Length; i++)
-        {
-            if (a[i] != b[i])
-                return false;
-        }
+            if (a[i] != b[i]) return false;
 
         return true;
     }
 
-    // =========================================================
-    // CONVERTE ESTADO EM STRING
-    // =========================================================
-
-    string GetStateKey(int[] state)
+    string GetKey(int[] state)
     {
         return string.Join(",", state);
     }
 
-    // =========================================================
-    // TRANSFERÊNCIA ENTRE POTES
-    // =========================================================
-
-    int[] Transfer(
-        int[] state,
-        int[] capacities,
-        int from,
-        int to
-    )
+    int[] Transfer(int[] state, int[] cap, int from, int to)
     {
-        int[] next =
-            (int[])state.Clone();
+        int[] next = (int[])state.Clone();
 
-        int freeSpace =
-            capacities[to] - next[to];
+        int free = cap[to] - next[to];
+        int amount = Mathf.Min(next[from], free);
 
-        int amount =
-            Mathf.Min(
-                next[from],
-                freeSpace
-            );
-
-        // movimento inválido
         if (amount <= 0)
             return next;
 
@@ -314,24 +141,14 @@ public class GeradorDeFases : MonoBehaviour
         return next;
     }
 
-    // =========================================================
-    // NODE BFS
-    // =========================================================
-
     class StateNode
     {
         public int[] state;
-
         public int moves;
 
-        public StateNode(
-            int[] s,
-            int m
-        )
+        public StateNode(int[] s, int m)
         {
-            state =
-                (int[])s.Clone();
-
+            state = (int[])s.Clone();
             moves = m;
         }
     }

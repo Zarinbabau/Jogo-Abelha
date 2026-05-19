@@ -1,116 +1,72 @@
 using UnityEngine;
 using System.Collections;
-using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class CointainerTest : MonoBehaviour
 {
     public bool MoverPotes = true;
 
-    // interage com o script de gerar fases
-
-    [Header("UI DA FASE")]
-    public TMP_Text dificuldadeText;
-    public TMP_Text objetivoText;
-
-    [HideInInspector]
-    public string dificuldade;
-
-    [HideInInspector]
-    public string objetivoDaFase;
+    [Header("Gerador")]
+    public GeradorDeFases gerador;
 
     [Header("UI")]
+    public TMP_Text dificuldadeText;
+    public TMP_Text objetivoText;
+    public TMP_Text movesText;
+
     public GameObject endPanel;
     public TMP_Text endText;
 
     [Header("Movimentos")]
-    public int maxMovimentos = 10;
-
+    public int maxMovimentos = 0;
     private int movimentosAtuais = 0;
 
-    public TMP_Text movesText;
-
-    [Header("Próxima fase")]
-    [SerializeField] private Object proximaCena;
-
-    [Header("Objetos selecionáveis")]
+    [Header("Jogo")]
     public GameObject[] options;
 
-    [Header("Resposta correta")]
+    [Header("Próxima cena")]
+    [SerializeField] private Object proximaCena;
+
     public int[] targetState;
 
     int currentIndex = 0;
-
-    Jug selectedJug = null;
-
+    Jug selectedJug;
     bool hasWon = false;
 
     void Start()
     {
         UpdateSelection();
-
         AtualizarMovimentos();
-
-        if (endPanel != null)
-            endPanel.SetActive(false);
+        endPanel.SetActive(false);
     }
 
     void Update()
     {
         if (!MoverPotes) return;
 
-        // =====================================
-        // CONFIRMA SELEÇÃO / TRANSFERÊNCIA
-        // =====================================
-
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Jug currentJug =
-                options[currentIndex]
-                .GetComponent<Jug>();
+            Jug j = options[currentIndex].GetComponent<Jug>();
 
             if (selectedJug == null)
-            {
-                selectedJug = currentJug;
-
-                Debug.Log("Origem: " + selectedJug.jugID);
-            }
+                selectedJug = j;
             else
             {
-                if (selectedJug == currentJug)
-                {
-                    selectedJug = null;
-                    return;
-                }
-
-                TransferLiquid(selectedJug, currentJug);
-
+                Transfer(selectedJug, j);
                 selectedJug = null;
             }
         }
 
-        // =====================================
-        // DIREITA
-        // =====================================
-
         if (Input.GetKeyDown(KeyCode.D))
         {
-            currentIndex++;
-
-            if (currentIndex >= options.Length)
-                currentIndex = 0;
-
+            currentIndex = (currentIndex + 1) % options.Length;
             UpdateSelection();
         }
-
-        // =====================================
-        // ESQUERDA
-        // =====================================
 
         if (Input.GetKeyDown(KeyCode.A))
         {
             currentIndex--;
-
             if (currentIndex < 0)
                 currentIndex = options.Length - 1;
 
@@ -118,22 +74,12 @@ public class CointainerTest : MonoBehaviour
         }
     }
 
-    // =====================================
-    // TRANSFERÊNCIA
-    // =====================================
-
-    void TransferLiquid(Jug from, Jug to)
+    void Transfer(Jug from, Jug to)
     {
-        int freeSpace = to.capacity - to.currentVolume;
+        int free = to.capacity - to.currentVolume;
+        int amount = Mathf.Min(from.currentVolume, free);
 
-        int amount = Mathf.Min(from.currentVolume, freeSpace);
-
-        // Movimento inválido NÃO conta
-        if (amount <= 0)
-        {
-            Debug.Log("Movimento inválido");
-            return;
-        }
+        if (amount <= 0) return;
 
         from.currentVolume -= amount;
         to.currentVolume += amount;
@@ -141,85 +87,32 @@ public class CointainerTest : MonoBehaviour
         from.UpdateVisual();
         to.UpdateVisual();
 
-        Debug.Log("Transferiu " + amount + "L");
-
-        // =====================================
-        // CONTA MOVIMENTO
-        // =====================================
-
         movimentosAtuais++;
-
         AtualizarMovimentos();
-
-        // =====================================
-        // VERIFICA VITÓRIA PRIMEIRO
-        // =====================================
 
         CheckVictory();
 
-        // Se venceu, não verifica derrota
-        if (hasWon)
-            return;
-
-        // =====================================
-        // DERROTA
-        // =====================================
-
-        if (movimentosAtuais >= maxMovimentos)
-        {
+        if (!hasWon && movimentosAtuais >= maxMovimentos)
             Derrota();
-        }
     }
-
-    // =====================================
-    // UI MOVIMENTOS
-    // =====================================
 
     public void AtualizarMovimentos()
     {
-        if (movesText != null)
-        {
-            movesText.text =
-                "Movimentos: " +
-                movimentosAtuais + "/" +
-                maxMovimentos;
-        }
+        movesText.text =
+            "Movimentos: " + movimentosAtuais + "/" + maxMovimentos;
     }
-
-    // =====================================
-    // ATUALIZA UI
-    // =====================================
 
     public void AtualizarUIFase()
     {
-        // =====================================
-        // DIFICULDADE
-        // =====================================
+        dificuldadeText.text =
+            "Dificuldade: " +
+            (gerador.currentLevelIndex == 0 ? "Fácil" :
+             gerador.currentLevelIndex == 1 ? "Médio" : "Difícil");
 
-        if (dificuldadeText != null)
-        {
-            dificuldadeText.text =
-                "Dificuldade: " + dificuldade;
-        }
-
-        // =====================================
-        // OBJETIVO AUTOMÁTICO
-        // =====================================
-
-        if (objetivoText != null)
-        {
-            string ordemFinal =
-                string.Join(" | ", targetState);
-
-            objetivoText.text =
-                "Objetivo: Deixe os potes na seguinte ordem\n" +
-                ordemFinal;
-        }
+        objetivoText.text =
+            "Objetivo: Deixe os potes na seguinte ordem\n" +
+            string.Join(" | ", targetState);
     }
-
-    // =====================================
-    // VITÓRIA
-    // =====================================
 
     void CheckVictory()
     {
@@ -227,9 +120,7 @@ public class CointainerTest : MonoBehaviour
 
         for (int i = 0; i < options.Length; i++)
         {
-            Jug j = options[i].GetComponent<Jug>();
-
-            if (j.currentVolume != targetState[i])
+            if (options[i].GetComponent<Jug>().currentVolume != targetState[i])
                 return;
         }
 
@@ -243,18 +134,17 @@ public class CointainerTest : MonoBehaviour
         hasWon = true;
         MoverPotes = false;
 
+        if (gerador.currentLevelIndex < gerador.levels.Count - 1)
+        {
+            StartCoroutine(ProximaFase());
+            return;
+        }
+
         endPanel.SetActive(true);
+        endText.text = "VITÓRIA!\n\nVocê completou todas as fases!";
 
-        endText.text =
-            "VITÓRIA!\n\n" +
-            "Você organizou o mel corretamente.";
-
-        StartCoroutine(VictoryRoutine());
+        StartCoroutine(CarregarIntro());
     }
-
-    // =====================================
-    // DERROTA
-    // =====================================
 
     void Derrota()
     {
@@ -264,55 +154,70 @@ public class CointainerTest : MonoBehaviour
         MoverPotes = false;
 
         endPanel.SetActive(true);
-
-        endText.text =
-            "DERROTA!\n\n" +
-            "Você excedeu o número de movimentos.";
+        endText.text = "DERROTA!\n\nTentativa falhou.";
 
         StartCoroutine(ReiniciarFase());
-    }
-
-    // =====================================
-    // CORROTINAS
-    // =====================================
-
-    IEnumerator VictoryRoutine()
-    {
-        Debug.Log("VITÓRIA!");
-
-        // Define qual será a próxima fase
-        IntroFase.proximaFase = proximaCena.name;
-
-        // Espera antes da intro
-        yield return new WaitForSecondsRealtime(1.5f);
-
-        // Abre a cena de introdução
-        SceneManager.LoadScene("Intro");
     }
 
     IEnumerator ReiniciarFase()
     {
         yield return new WaitForSecondsRealtime(2f);
 
-        SceneManager.LoadScene(
-            SceneManager.GetActiveScene().name
-        );
+        gerador.ApplyLevel(gerador.currentLevelIndex);
+
+        movimentosAtuais = 0;
+        AtualizarMovimentos();
+
+        ResetSelecao();
+
+        hasWon = false;
+        MoverPotes = true;
+
+        endPanel.SetActive(false);
     }
 
-    // =====================================
-    // VISUAL SELEÇÃO
-    // =====================================
+    IEnumerator ProximaFase()
+    {
+        MoverPotes = false;
+
+        yield return new WaitForSecondsRealtime(1.5f);
+
+        gerador.currentLevelIndex++;
+        gerador.ApplyLevel(gerador.currentLevelIndex);
+
+        movimentosAtuais = 0;
+        AtualizarMovimentos();
+
+        ResetSelecao();
+
+        hasWon = false;
+        MoverPotes = true;
+
+        endPanel.SetActive(false);
+    }
+
+    IEnumerator CarregarIntro()
+    {
+        IntroFase.proximaFase = proximaCena.name;
+
+        yield return new WaitForSecondsRealtime(2f);
+
+        SceneManager.LoadScene("Intro");
+    }
+
+    void ResetSelecao()
+    {
+        currentIndex = 0;
+        selectedJug = null;
+        UpdateSelection();
+    }
 
     void UpdateSelection()
     {
         for (int i = 0; i < options.Length; i++)
         {
-            Transform child =
-                options[i].transform.GetChild(0);
-
-            child.gameObject.SetActive(
-                i == currentIndex
-            );
+            options[i].transform.GetChild(0)
+                .gameObject.SetActive(i == currentIndex);
         }
     }
 }
