@@ -31,21 +31,21 @@ public class IntroFase : MonoBehaviour
 
             case "Fase 3":
                 textoIntro.text =
-                    "FASE 3\n\n" +
+                    "FASE 2\n\n" +
                     "Organize a quantidade de mel nos potes\n" +
-                    "use o menor número de movimentos possíveis.";
+                    "use poucos movimentos possíveis.";
                 break;
 
             case "Fase 4":
                 textoIntro.text =
-                    "FASE 4\n\n" +
+                    "FASE 3\n\n" +
                     "Atravesse o labirinto para entregar o mel\n" +
-                    "à abelha rainha antes que o tempo acabe.";
+                    "para a abelha rainha antes\n" + "que o tempo acabe.";
                 break;
 
             case "EndGame":
                 textoIntro.text =
-                    "Parabéns, você completou toda a jornada do mel!!";
+                    "Parabéns!!\n\n" + "Você completou todo\n" + "o caminho do mel!!";
                 break;
         }
     }

@@ -7,6 +7,18 @@ public class CointainerTest : MonoBehaviour
 {
     public bool MoverPotes = true;
 
+    // interage com o script de gerar fases
+
+    [Header("UI DA FASE")]
+    public TMP_Text dificuldadeText;
+    public TMP_Text objetivoText;
+
+    [HideInInspector]
+    public string dificuldade;
+
+    [HideInInspector]
+    public string objetivoDaFase;
+
     [Header("UI")]
     public GameObject endPanel;
     public TMP_Text endText;
@@ -81,7 +93,7 @@ public class CointainerTest : MonoBehaviour
         // DIREITA
         // =====================================
 
-        if (Input.GetKeyDown(KeyCode.RightArrow))
+        if (Input.GetKeyDown(KeyCode.D))
         {
             currentIndex++;
 
@@ -95,7 +107,7 @@ public class CointainerTest : MonoBehaviour
         // ESQUERDA
         // =====================================
 
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        if (Input.GetKeyDown(KeyCode.A))
         {
             currentIndex--;
 
@@ -163,13 +175,45 @@ public class CointainerTest : MonoBehaviour
     // UI MOVIMENTOS
     // =====================================
 
-    void AtualizarMovimentos()
+    public void AtualizarMovimentos()
     {
         if (movesText != null)
         {
             movesText.text =
+                "Movimentos: " +
                 movimentosAtuais + "/" +
                 maxMovimentos;
+        }
+    }
+
+    // =====================================
+    // ATUALIZA UI
+    // =====================================
+
+    public void AtualizarUIFase()
+    {
+        // =====================================
+        // DIFICULDADE
+        // =====================================
+
+        if (dificuldadeText != null)
+        {
+            dificuldadeText.text =
+                "Dificuldade: " + dificuldade;
+        }
+
+        // =====================================
+        // OBJETIVO AUTOMÁTICO
+        // =====================================
+
+        if (objetivoText != null)
+        {
+            string ordemFinal =
+                string.Join(" | ", targetState);
+
+            objetivoText.text =
+                "Objetivo: Deixe os potes na seguinte ordem\n" +
+                ordemFinal;
         }
     }
 
