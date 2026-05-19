@@ -1,9 +1,25 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
+using TMPro;
 
 public class CointainerTest : MonoBehaviour
 {
     public bool MoverPotes = true;
+
+    [Header("UI")]
+    public GameObject endPanel;
+    public TMP_Text endText;
+
+    [Header("Movimentos")]
+    public int maxMovimentos = 10;
+
+    private int movimentosAtuais = 0;
+
+    public TMP_Text movesText;
+
+    [Header("Próxima fase")]
+    [SerializeField] private Object proximaCena;
 
     [Header("Objetos selecionáveis")]
     public GameObject[] options;
@@ -20,6 +36,11 @@ public class CointainerTest : MonoBehaviour
     void Start()
     {
         UpdateSelection();
+
+        AtualizarMovimentos();
+
+        if (endPanel != null)
+            endPanel.SetActive(false);
     }
 
     void Update()
@@ -53,8 +74,6 @@ public class CointainerTest : MonoBehaviour
                 TransferLiquid(selectedJug, currentJug);
 
                 selectedJug = null;
-
-                CheckVictory();
             }
         }
 
@@ -97,6 +116,7 @@ public class CointainerTest : MonoBehaviour
 
         int amount = Mathf.Min(from.currentVolume, freeSpace);
 
+        // Movimento inválido NÃO conta
         if (amount <= 0)
         {
             Debug.Log("Movimento inválido");
@@ -110,6 +130,47 @@ public class CointainerTest : MonoBehaviour
         to.UpdateVisual();
 
         Debug.Log("Transferiu " + amount + "L");
+
+        // =====================================
+        // CONTA MOVIMENTO
+        // =====================================
+
+        movimentosAtuais++;
+
+        AtualizarMovimentos();
+
+        // =====================================
+        // VERIFICA VITÓRIA PRIMEIRO
+        // =====================================
+
+        CheckVictory();
+
+        // Se venceu, não verifica derrota
+        if (hasWon)
+            return;
+
+        // =====================================
+        // DERROTA
+        // =====================================
+
+        if (movimentosAtuais >= maxMovimentos)
+        {
+            Derrota();
+        }
+    }
+
+    // =====================================
+    // UI MOVIMENTOS
+    // =====================================
+
+    void AtualizarMovimentos()
+    {
+        if (movesText != null)
+        {
+            movesText.text =
+                movimentosAtuais + "/" +
+                maxMovimentos;
+        }
     }
 
     // =====================================
@@ -128,30 +189,70 @@ public class CointainerTest : MonoBehaviour
                 return;
         }
 
+        Vitoria();
+    }
+
+    void Vitoria()
+    {
+        if (hasWon) return;
+
+        hasWon = true;
+        MoverPotes = false;
+
+        endPanel.SetActive(true);
+
+        endText.text =
+            "VITÓRIA!\n\n" +
+            "Você organizou o mel corretamente.";
+
         StartCoroutine(VictoryRoutine());
     }
 
     // =====================================
-    // CORROTINA DE VITÓRIA
+    // DERROTA
+    // =====================================
+
+    void Derrota()
+    {
+        if (hasWon) return;
+
+        hasWon = true;
+        MoverPotes = false;
+
+        endPanel.SetActive(true);
+
+        endText.text =
+            "DERROTA!\n\n" +
+            "Você excedeu o número de movimentos.";
+
+        StartCoroutine(ReiniciarFase());
+    }
+
+    // =====================================
+    // CORROTINAS
     // =====================================
 
     IEnumerator VictoryRoutine()
     {
-        hasWon = true;
-        MoverPotes = false;
-
         Debug.Log("VITÓRIA!");
 
-        yield return new WaitForSeconds(1.5f);
+        // Define qual será a próxima fase
+        IntroFase.proximaFase = proximaCena.name;
 
-        // aqui você pode:
-        // - carregar próxima fase
-        // - ou resetar
+        // Espera antes da intro
+        yield return new WaitForSecondsRealtime(1.5f);
 
-        MoverPotes = true;
-        hasWon = false;
+        // Abre a cena de introdução
+        SceneManager.LoadScene("Intro");
+    }
 
-        Debug.Log("Jogo liberado novamente");
+    IEnumerator ReiniciarFase()
+    {
+        yield return new WaitForSecondsRealtime(2f);
+
+        SceneManager.LoadScene(
+            SceneManager.GetActiveScene().name
+        );
     }
 
     // =====================================
@@ -162,9 +263,12 @@ public class CointainerTest : MonoBehaviour
     {
         for (int i = 0; i < options.Length; i++)
         {
-            Transform child = options[i].transform.GetChild(0);
+            Transform child =
+                options[i].transform.GetChild(0);
 
-            child.gameObject.SetActive(i == currentIndex);
+            child.gameObject.SetActive(
+                i == currentIndex
+            );
         }
     }
 }

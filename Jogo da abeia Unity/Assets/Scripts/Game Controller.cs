@@ -1,9 +1,13 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class GameController : MonoBehaviour
 {
     public static GameController instance;
+    public Player player;
+    public InventoryUI inventoryUI;
 
     [Header("Pontuação")]
     public int TotalScore;
@@ -15,6 +19,10 @@ public class GameController : MonoBehaviour
 
     [Header("Fim da fase")]
     public TMP_Text endText;
+
+    [Header("Próxima fase")]
+    [SerializeField] private Object proximaCena;
+
 
     private bool faseTerminada = false;
 
@@ -29,6 +37,13 @@ public class GameController : MonoBehaviour
 
         if (endText != null)
             endText.gameObject.SetActive(false);
+
+        // AQUI LIGA O INVENTÁRIO COM O PLAYER
+        if (inventoryUI != null && player != null)
+        {
+            inventoryUI.Init(player);
+        }
+        Debug.Log("Init UI chamando...");
     }
 
     void Update()
@@ -72,7 +87,7 @@ public class GameController : MonoBehaviour
 
     public void UpdateScoreText()
     {
-        scoreText.text = TotalScore.ToString() + "x";
+        scoreText.text = TotalScore.ToString() + "/10";
     }
 
     void FinalizarFase(string mensagemFinal)
@@ -80,6 +95,9 @@ public class GameController : MonoBehaviour
         if (faseTerminada) return;
 
         faseTerminada = true;
+
+        // Impede o jogador de se mover
+        FindFirstObjectByType<Player>().TravarMovimento();
 
         if (endText != null)
         {
@@ -91,6 +109,27 @@ public class GameController : MonoBehaviour
                 TotalScore.ToString();
         }
 
-        Time.timeScale = 0f;
+        // Só troca de fase se venceu
+        if (mensagemFinal == "VOCÊ COLETOU TODOS OS POLENS!")
+        {
+            StartCoroutine(CarregarIntro());
+        }
+
+        else
+        {
+            Time.timeScale = 0f;
+        }
+
+    }
+    IEnumerator CarregarIntro()
+    {
+        // Define qual será a próxima fase
+        IntroFase.proximaFase = proximaCena.name;
+
+        // Espera 2 segundos mostrando a mensagem
+        yield return new WaitForSecondsRealtime(2f);
+
+        // Abre a cena de introdução
+        SceneManager.LoadScene("Intro");
     }
 }

@@ -5,12 +5,15 @@ public class MainMenu : MonoBehaviour
 {
     public void PlayGame()
     {
-        SceneManager.LoadSceneAsync("Fase de coleta");
+        // Define a primeira fase do jogo
+        IntroFase.proximaFase = "Fase 1";
+
+        // Carrega a cena de introdução
+        SceneManager.LoadSceneAsync("Intro");
     }
 
     public void QuitGame()
     {
         Application.Quit();
     }
-
 }

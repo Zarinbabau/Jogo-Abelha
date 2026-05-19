@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class Player : MonoBehaviour
 {
     private Rigidbody2D rb;
+    public System.Action<int> OnInventarioChanged;
 
     [Header("Movimento")]
     public float moveSpeed = 6f;
@@ -19,9 +20,16 @@ public class Player : MonoBehaviour
     float horizontalInput;
     bool liftInput;
 
+    // Controle de movimento
+    private bool podeMover = true;
+
     // Lista de pólens carregados
     private List<Polen> polensCarregados =
         new List<Polen>();
+    void Start()
+    {
+        OnInventarioChanged?.Invoke(polensCarregados.Count);
+    }
 
     void Awake()
     {
@@ -30,6 +38,14 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        // Bloqueia inputs
+        if (!podeMover)
+        {
+            horizontalInput = 0f;
+            liftInput = false;
+            return;
+        }
+
         horizontalInput = 0f;
 
         if (Input.GetKey(KeyCode.A))
@@ -43,6 +59,12 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (!podeMover)
+        {
+            rb.linearVelocity = Vector2.zero;
+            return;
+        }
+
         HandleRotation();
 
         Vector2 velocity = rb.linearVelocity;
@@ -66,6 +88,23 @@ public class Player : MonoBehaviour
     }
 
     // =========================
+    // TRAVAR MOVIMENTO
+    // =========================
+
+    public void TravarMovimento()
+    {
+        podeMover = false;
+
+        rb.linearVelocity = Vector2.zero;
+        rb.angularVelocity = 0f;
+
+        rb.gravityScale = 0f;
+
+        rb.constraints =
+            RigidbodyConstraints2D.FreezeAll;
+    }
+
+    // =========================
     // PÓLEN
     // =========================
 
@@ -80,6 +119,9 @@ public class Player : MonoBehaviour
             return;
 
         polensCarregados.Add(polen);
+        
+        OnInventarioChanged?.Invoke(polensCarregados.Count);
+
     }
 
     public void EntregarPolen()
@@ -94,11 +136,14 @@ public class Player : MonoBehaviour
             polen.Entregar();
 
             pontosGanhos += polen.Score;
+
         }
 
         GameController.instance.AddScore(pontosGanhos);
 
         polensCarregados.Clear();
+
+        OnInventarioChanged?.Invoke(0);
     }
 
     public void DroparPolens()
@@ -112,5 +157,8 @@ public class Player : MonoBehaviour
         }
 
         polensCarregados.Clear();
+
+        OnInventarioChanged?.Invoke(0);
+
     }
 }
