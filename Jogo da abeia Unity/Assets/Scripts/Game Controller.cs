@@ -121,6 +121,7 @@ public class GameController : MonoBehaviour
         }
 
     }
+    
     IEnumerator CarregarIntro()
     {
         // Define qual será a próxima fase
