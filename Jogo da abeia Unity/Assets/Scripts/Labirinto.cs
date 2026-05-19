@@ -76,7 +76,7 @@ public class Labirinto : MonoBehaviour
 
             endText.text =
                 "Parabéns!!" +
-                "\n\n" +
+                "\n" +
                 "Você conseguiu entregar o mel!";
         }
 
