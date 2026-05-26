@@ -222,7 +222,7 @@ GameObject:
   - component: {fileID: 115780639}
   - component: {fileID: 115780638}
   m_Layer: 0
-  m_Name: Icones_6
+  m_Name: Beinha
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

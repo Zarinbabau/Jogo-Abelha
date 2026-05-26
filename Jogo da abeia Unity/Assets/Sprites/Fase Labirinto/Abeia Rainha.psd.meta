@@ -103,12 +103,12 @@ TextureImporter:
       name: Concept Rainha_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 3840
-        height: 2160
+        x: 1353
+        y: 37
+        width: 1206
+        height: 1790
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -121,11 +121,99 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Abeia Rainha_0
+      rect:
+        serializedVersion: 2
+        x: 1073
+        y: 197
+        width: 224
+        height: 1486
+      alignment: 9
+      pivot: {x: 0.5, y: 0.63442135}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd8fce942285c6f4080b9ea4c8cee98a
+      internalID: 156087135
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Abeia Rainha_1
+      rect:
+        serializedVersion: 2
+        x: 410
+        y: 229
+        width: 471
+        height: 1191
+      alignment: 9
+      pivot: {x: 0.83927864, y: 0.8354328}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 77f51338abb1b0c4cbf8420df004796b
+      internalID: -931157822
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Abeia Rainha_2
+      rect:
+        serializedVersion: 2
+        x: 2951
+        y: 245
+        width: 543
+        height: 1095
+      alignment: 9
+      pivot: {x: 0.20570849, y: 0.9013247}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 73f4d98146a50d34ea7d46442fbd39a2
+      internalID: 430273435
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Abeia Rainha_3
+      rect:
+        serializedVersion: 2
+        x: 2775
+        y: 1643
+        width: 535
+        height: 456
+      alignment: 9
+      pivot: {x: 0.51493454, y: 0.27221438}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 103a0ae13c181814a92bbef5081d6a10
+      internalID: -1910805508
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 331e42d3330803f42946554212213381
     internalID: 0
     vertices: []
     indices: 
@@ -135,6 +223,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
+      Abeia Rainha_0: 156087135
+      Abeia Rainha_1: -931157822
+      Abeia Rainha_2: 430273435
+      Abeia Rainha_3: -1910805508
       Concept Rainha_0: 6284378993158482903
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
