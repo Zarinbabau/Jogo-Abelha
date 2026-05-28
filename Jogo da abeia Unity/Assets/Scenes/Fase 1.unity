@@ -680,6 +680,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Moeda (19)
       objectReference: {fileID: 0}
+    - target: {fileID: 2939975181366172465, guid: d69cd2686800a1e4294af5952eace144, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5230777905570484439, guid: d69cd2686800a1e4294af5952eace144, type: 3}
       propertyPath: m_LocalPosition.x
       value: -26.75
@@ -1613,6 +1617,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Moeda (14)
       objectReference: {fileID: 0}
+    - target: {fileID: 2939975181366172465, guid: d69cd2686800a1e4294af5952eace144, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5230777905570484439, guid: d69cd2686800a1e4294af5952eace144, type: 3}
       propertyPath: m_LocalPosition.x
       value: -26.75
@@ -2035,6 +2043,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Moeda (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 2939975181366172465, guid: d69cd2686800a1e4294af5952eace144, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5230777905570484439, guid: d69cd2686800a1e4294af5952eace144, type: 3}
       propertyPath: m_LocalPosition.x
       value: -26.75
@@ -2377,6 +2389,10 @@ PrefabInstance:
     - target: {fileID: 2939975181366172465, guid: d69cd2686800a1e4294af5952eace144, type: 3}
       propertyPath: m_Name
       value: Moeda (17)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2939975181366172465, guid: d69cd2686800a1e4294af5952eace144, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5230777905570484439, guid: d69cd2686800a1e4294af5952eace144, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3684,6 +3700,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Moeda (15)
       objectReference: {fileID: 0}
+    - target: {fileID: 2939975181366172465, guid: d69cd2686800a1e4294af5952eace144, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5230777905570484439, guid: d69cd2686800a1e4294af5952eace144, type: 3}
       propertyPath: m_LocalPosition.x
       value: -26.75
@@ -3744,6 +3764,10 @@ PrefabInstance:
     - target: {fileID: 2939975181366172465, guid: d69cd2686800a1e4294af5952eace144, type: 3}
       propertyPath: m_Name
       value: Moeda (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2939975181366172465, guid: d69cd2686800a1e4294af5952eace144, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5230777905570484439, guid: d69cd2686800a1e4294af5952eace144, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3806,6 +3830,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Moeda (18)
       objectReference: {fileID: 0}
+    - target: {fileID: 2939975181366172465, guid: d69cd2686800a1e4294af5952eace144, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5230777905570484439, guid: d69cd2686800a1e4294af5952eace144, type: 3}
       propertyPath: m_LocalPosition.x
       value: -26.75
@@ -3866,6 +3894,10 @@ PrefabInstance:
     - target: {fileID: 2939975181366172465, guid: d69cd2686800a1e4294af5952eace144, type: 3}
       propertyPath: m_Name
       value: Moeda (13)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2939975181366172465, guid: d69cd2686800a1e4294af5952eace144, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5230777905570484439, guid: d69cd2686800a1e4294af5952eace144, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4067,6 +4099,10 @@ PrefabInstance:
     - target: {fileID: 2939975181366172465, guid: d69cd2686800a1e4294af5952eace144, type: 3}
       propertyPath: m_Name
       value: Moeda (12)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2939975181366172465, guid: d69cd2686800a1e4294af5952eace144, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5230777905570484439, guid: d69cd2686800a1e4294af5952eace144, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5282,6 +5318,10 @@ PrefabInstance:
     - target: {fileID: 2939975181366172465, guid: d69cd2686800a1e4294af5952eace144, type: 3}
       propertyPath: m_Name
       value: Moeda (16)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2939975181366172465, guid: d69cd2686800a1e4294af5952eace144, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5230777905570484439, guid: d69cd2686800a1e4294af5952eace144, type: 3}
       propertyPath: m_LocalPosition.x
