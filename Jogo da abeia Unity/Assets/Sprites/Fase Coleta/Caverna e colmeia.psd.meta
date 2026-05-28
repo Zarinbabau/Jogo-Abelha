@@ -108,7 +108,7 @@ TextureImporter:
         serializedVersion: 2
         x: 35
         y: 784
-        width: 862
+        width: 836
         height: 1292
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -128,10 +128,10 @@ TextureImporter:
       name: Caverna e colmeia_1
       rect:
         serializedVersion: 2
-        x: 871
-        y: 54
-        width: 2957
-        height: 1901
+        x: 927
+        y: 23
+        width: 2901
+        height: 2098
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
