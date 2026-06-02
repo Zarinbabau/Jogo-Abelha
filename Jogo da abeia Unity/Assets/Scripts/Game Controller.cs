@@ -81,7 +81,7 @@ public class GameController : MonoBehaviour
         // CONDIÇÃO DE VITÓRIA POR SCORE
         if (TotalScore >= 12)
         {
-            FinalizarFase("VOCÊ COLETOU TODOS OS POLENS!");
+            FinalizarFase("PARABÉNS VOCÊ COLETOU TODOS OS POLENS!");
         }
     }
 
@@ -100,17 +100,25 @@ public class GameController : MonoBehaviour
         FindFirstObjectByType<Player>().TravarMovimento();
 
         if (endText != null)
-        {
-            endText.gameObject.SetActive(true);
+{
+    endText.gameObject.SetActive(true);
 
-            endText.text =
-                mensagemFinal + "\n\n" +
-                "Pólen entregue: " +
-                TotalScore.ToString();
-        }
+    if (mensagemFinal == "PARABÉNS VOCÊ COLETOU TODOS OS POLENS!")
+    {
+        endText.text = mensagemFinal;
+    }
+    else
+    {
+        endText.text =
+            mensagemFinal + "\n\n" +
+            "Pólens entregues: " +
+            TotalScore.ToString();
+        StartCoroutine(ReiniciarFase());
+    }
+}
 
         // Só troca de fase se venceu
-        if (mensagemFinal == "VOCÊ COLETOU TODOS OS POLENS!")
+        if (mensagemFinal == "PARABÉNS VOCÊ COLETOU TODOS OS POLENS!")
         {
             StartCoroutine(CarregarIntro());
         }
@@ -133,4 +141,16 @@ public class GameController : MonoBehaviour
         // Abre a cena de introdução
         SceneManager.LoadScene("Intro");
     }
+
+    IEnumerator ReiniciarFase()
+{
+    yield return new WaitForSecondsRealtime(2f);
+
+    Time.timeScale = 1f;
+
+    SceneManager.LoadScene(
+        SceneManager.GetActiveScene().name
+    );
+}
+
 }

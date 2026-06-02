@@ -1491,7 +1491,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1514,7 +1514,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -2624,8 +2624,8 @@ EdgeCollider2D:
   - {x: -2.0535736, y: 8.020567}
   - {x: -0.84437186, y: 8.260667}
   - {x: 1.2636015, y: 9.365332}
-  - {x: 22.533552, y: 9.373621}
-  - {x: 22.389889, y: -6.805887}
+  - {x: 24.283482, y: 9.441831}
+  - {x: 24.150852, y: -6.8058877}
   - {x: -6.972885, y: -6.7737403}
   - {x: -7.6892943, y: -8.682717}
   m_AdjacentStartPoint: {x: 0, y: 0}
