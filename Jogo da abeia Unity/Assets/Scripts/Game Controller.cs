@@ -79,7 +79,7 @@ public class GameController : MonoBehaviour
         UpdateScoreText();
 
         // CONDIÇÃO DE VITÓRIA POR SCORE
-        if (TotalScore >= 10)
+        if (TotalScore >= 12)
         {
             FinalizarFase("VOCÊ COLETOU TODOS OS POLENS!");
         }
@@ -87,7 +87,7 @@ public class GameController : MonoBehaviour
 
     public void UpdateScoreText()
     {
-        scoreText.text = TotalScore.ToString() + "/10";
+        scoreText.text = TotalScore.ToString() + "/12";
     }
 
     void FinalizarFase(string mensagemFinal)
