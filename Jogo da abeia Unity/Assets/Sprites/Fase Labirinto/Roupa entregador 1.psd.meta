@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c4209102a912a0140a73015502438fdf
+guid: 47d05d7587b2c964e9534ca6cc06ed1a
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -103,10 +103,10 @@ TextureImporter:
       name: Roupa entregador_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 467
-        width: 720
-        height: 813
+        x: 129
+        y: 155
+        width: 362
+        height: 296
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
