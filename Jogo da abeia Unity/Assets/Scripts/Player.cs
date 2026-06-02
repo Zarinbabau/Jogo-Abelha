@@ -12,7 +12,10 @@ public class Player : MonoBehaviour
     public float liftForce = 50f;
 
     [Header("Rotação")]
-    public float tiltAngle = 25f;
+    public float tiltAngle = 45f;
+
+    [Header("Visual")]
+    public Transform playerImage;
 
     [Header("Inventário")]
     public int capacidadeMaxima = 3;
@@ -20,25 +23,23 @@ public class Player : MonoBehaviour
     float horizontalInput;
     bool liftInput;
 
-    // Controle de movimento
     private bool podeMover = true;
 
-    // Lista de pólens carregados
     private List<Polen> polensCarregados =
         new List<Polen>();
-    void Start()
-    {
-        OnInventarioChanged?.Invoke(polensCarregados.Count);
-    }
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
     }
 
+    void Start()
+    {
+        OnInventarioChanged?.Invoke(polensCarregados.Count);
+    }
+
     void Update()
     {
-        // Bloqueia inputs
         if (!podeMover)
         {
             horizontalInput = 0f;
@@ -65,6 +66,7 @@ public class Player : MonoBehaviour
             return;
         }
 
+        HandleFlip();
         HandleRotation();
 
         Vector2 velocity = rb.linearVelocity;
@@ -79,12 +81,40 @@ public class Player : MonoBehaviour
         rb.linearVelocity = velocity;
     }
 
+    void HandleFlip()
+    {
+        if (playerImage == null)
+            return;
+
+        Vector3 scale = playerImage.localScale;
+
+        if (horizontalInput < 0)
+        {
+            scale.x = -Mathf.Abs(scale.x);
+        }
+        else if (horizontalInput > 0)
+        {
+            scale.x = Mathf.Abs(scale.x);
+        }
+
+        playerImage.localScale = scale;
+    }
+
     void HandleRotation()
     {
-        float targetAngle = -horizontalInput * tiltAngle;
+        float targetAngle = 0f;
+
+        if (horizontalInput > 0)
+        {
+            targetAngle = -tiltAngle;
+        }
+        else if (horizontalInput < 0)
+        {
+            targetAngle = tiltAngle;
+        }
 
         transform.rotation =
-            Quaternion.Euler(0, 0, targetAngle);
+            Quaternion.Euler(0f, 0f, targetAngle);
     }
 
     // =========================
@@ -119,9 +149,8 @@ public class Player : MonoBehaviour
             return;
 
         polensCarregados.Add(polen);
-        
-        OnInventarioChanged?.Invoke(polensCarregados.Count);
 
+        OnInventarioChanged?.Invoke(polensCarregados.Count);
     }
 
     public void EntregarPolen()
@@ -134,9 +163,7 @@ public class Player : MonoBehaviour
         foreach (Polen polen in polensCarregados)
         {
             polen.Entregar();
-
             pontosGanhos += polen.Score;
-
         }
 
         GameController.instance.AddScore(pontosGanhos);
@@ -159,6 +186,5 @@ public class Player : MonoBehaviour
         polensCarregados.Clear();
 
         OnInventarioChanged?.Invoke(0);
-
     }
 }
