@@ -1,12 +1,12 @@
 using UnityEngine;
 
-public class AreaVitoria : MonoBehaviour
+public class AreaEntregaMel : MonoBehaviour
 {
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (other.CompareTag("Player"))
-        {
-            Labirinto.instance.Vitoria();
-        }
+        if (!collision.CompareTag("Player"))
+            return;
+
+        Labirinto.instance.EntregarMel();
     }
 }
