@@ -79,18 +79,24 @@ public class Labirinto : MonoBehaviour
 
         UpdateScoreText();
 
-        if (TotalScore >= scoreParaVencer)
+        if (TotalScore >= scoreParaVencer && !podeEntregar)
         {
             podeEntregar = true;
 
+            Player player = FindFirstObjectByType<Player>();
+
+            if (player != null)
+                player.TravarMovimento();
+
             StartCoroutine(
                 MostrarMensagemTemporaria(
-                    "Todo o mel foi coletado!\n\nLeve-o até a colmeia.",
-                    1.5f
+                    "Todo o mel foi coletado!\n\nLeve-o até a Rainha.",
+                    2f
                 )
             );
         }
     }
+
     public void UpdateScoreText()
     {
         if (scoreText != null)
@@ -125,7 +131,10 @@ public class Labirinto : MonoBehaviour
 
         faseTerminada = true;
 
-        FindFirstObjectByType<Player>().TravarMovimento();
+        Player player = FindFirstObjectByType<Player>();
+
+        if (player != null)
+            player.TravarMovimento();
 
         if (endText != null)
         {
@@ -151,7 +160,10 @@ public class Labirinto : MonoBehaviour
 
         faseTerminada = true;
 
-        FindFirstObjectByType<Player>().TravarMovimento();
+        Player player = FindFirstObjectByType<Player>();
+
+        if (player != null)
+            player.TravarMovimento();
 
         if (endText != null)
         {
@@ -193,6 +205,9 @@ public class Labirinto : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
+    // =====================================
+    // MENSAGEM TEMPORÁRIA
+    // =====================================
 
     IEnumerator MostrarMensagemTemporaria(string mensagem, float tempo)
     {
@@ -207,6 +222,11 @@ public class Labirinto : MonoBehaviour
         if (!faseTerminada)
         {
             endText.gameObject.SetActive(false);
+
+            Player player = FindFirstObjectByType<Player>();
+
+            if (player != null)
+                player.LiberarMovimento();
         }
     }
 }

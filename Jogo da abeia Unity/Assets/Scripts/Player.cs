@@ -135,6 +135,20 @@ public class Player : MonoBehaviour
     }
 
     // =========================
+    // LIBERAR MOVIMENTO
+    // =========================
+
+    public void LiberarMovimento()
+    {
+        podeMover = true;
+
+        rb.gravityScale = 0.5f;
+
+        rb.constraints =
+            RigidbodyConstraints2D.FreezeRotation;
+    }
+
+    // =========================
     // PÓLEN
     // =========================
 
