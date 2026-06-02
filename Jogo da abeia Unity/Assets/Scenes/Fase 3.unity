@@ -403,7 +403,7 @@ MonoBehaviour:
   - {fileID: 244718239}
   - {fileID: 374628253}
   - {fileID: 701072492}
-  proximaCena: {fileID: 102900000, guid: 5922cde1a7e0f4b8c8c25a6155ebaafa, type: 3}
+  proximaCena: {fileID: 102900000, guid: 3c09955129e892741a5da0879ac9e93b, type: 3}
   targetState: 000000000000000000000000
 --- !u!1 &359057348
 GameObject:

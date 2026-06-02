@@ -7,8 +7,13 @@ public class Labirinto : MonoBehaviour
 {
     public static Labirinto instance;
 
+    [Header("Pontuação")]
+    public int TotalScore;
+    public int scoreParaVencer = 3;
+    public TMP_Text scoreText;
+
     [Header("Tempo")]
-    public float tempoDeFase = 90f;
+    public float tempoDeFase = 150f;
     public TMP_Text timerText;
 
     [Header("Fim da fase")]
@@ -19,6 +24,9 @@ public class Labirinto : MonoBehaviour
 
     private bool faseTerminada = false;
 
+    // Libera a entrega quando todo o mel for coletado
+    private bool podeEntregar = false;
+
     void Awake()
     {
         instance = this;
@@ -26,6 +34,8 @@ public class Labirinto : MonoBehaviour
 
     void Start()
     {
+        UpdateScoreText();
+
         if (endText != null)
             endText.gameObject.SetActive(false);
     }
@@ -40,7 +50,6 @@ public class Labirinto : MonoBehaviour
         if (tempoDeFase <= 0)
         {
             tempoDeFase = 0;
-
             Derrota();
         }
 
@@ -58,26 +67,83 @@ public class Labirinto : MonoBehaviour
     }
 
     // =====================================
+    // PONTUAÇÃO
+    // =====================================
+
+    public void AddScore(int valor)
+    {
+        if (faseTerminada)
+            return;
+
+        TotalScore += valor;
+
+        UpdateScoreText();
+
+        if (TotalScore >= scoreParaVencer && !podeEntregar)
+        {
+            podeEntregar = true;
+
+            Player player = FindFirstObjectByType<Player>();
+
+            if (player != null)
+                player.TravarMovimento();
+
+            StartCoroutine(
+                MostrarMensagemTemporaria(
+                    "Todo o mel foi coletado!\n\nLeve-o até a Rainha.",
+                    2f
+                )
+            );
+        }
+    }
+
+    public void UpdateScoreText()
+    {
+        if (scoreText != null)
+        {
+            scoreText.text =
+                TotalScore.ToString() +
+                "/" +
+                scoreParaVencer.ToString();
+        }
+    }
+
+    // =====================================
+    // ENTREGA
+    // =====================================
+
+    public void EntregarMel()
+    {
+        if (!podeEntregar)
+            return;
+
+        Vitoria();
+    }
+
+    // =====================================
     // VITÓRIA
     // =====================================
 
     public void Vitoria()
     {
-        if (faseTerminada) return;
+        if (faseTerminada)
+            return;
 
         faseTerminada = true;
 
-        // Trava o player
-        FindFirstObjectByType<Player>().TravarMovimento();
+        Player player = FindFirstObjectByType<Player>();
+
+        if (player != null)
+            player.TravarMovimento();
 
         if (endText != null)
         {
             endText.gameObject.SetActive(true);
 
             endText.text =
-                "Parabéns!!" +
-                "\n" +
-                "Você conseguiu entregar o mel!";
+                "PARABÉNS!" +
+                "\n\n" +
+                "Você entregou todo o mel!";
         }
 
         StartCoroutine(CarregarIntro());
@@ -89,12 +155,15 @@ public class Labirinto : MonoBehaviour
 
     void Derrota()
     {
-        if (faseTerminada) return;
+        if (faseTerminada)
+            return;
 
         faseTerminada = true;
 
-        // Trava o player
-        FindFirstObjectByType<Player>().TravarMovimento();
+        Player player = FindFirstObjectByType<Player>();
+
+        if (player != null)
+            player.TravarMovimento();
 
         if (endText != null)
         {
@@ -103,7 +172,10 @@ public class Labirinto : MonoBehaviour
             endText.text =
                 "TEMPO ESGOTADO!" +
                 "\n\n" +
-                "Tente novamente.";
+                "Mel coletado: " +
+                TotalScore.ToString() +
+                "/" +
+                scoreParaVencer.ToString();
         }
 
         StartCoroutine(ReiniciarFase());
@@ -131,5 +203,30 @@ public class Labirinto : MonoBehaviour
         yield return new WaitForSecondsRealtime(2f);
 
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    // =====================================
+    // MENSAGEM TEMPORÁRIA
+    // =====================================
+
+    IEnumerator MostrarMensagemTemporaria(string mensagem, float tempo)
+    {
+        if (endText == null)
+            yield break;
+
+        endText.gameObject.SetActive(true);
+        endText.text = mensagem;
+
+        yield return new WaitForSeconds(tempo);
+
+        if (!faseTerminada)
+        {
+            endText.gameObject.SetActive(false);
+
+            Player player = FindFirstObjectByType<Player>();
+
+            if (player != null)
+                player.LiberarMovimento();
+        }
     }
 }
