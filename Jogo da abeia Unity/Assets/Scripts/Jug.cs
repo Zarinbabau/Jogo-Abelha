@@ -1,13 +1,9 @@
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class Jug : MonoBehaviour
 {
-void Update(){
-UpdateVisual();
-
-}
-
     public int jugID;
 
     public int capacity;
@@ -15,19 +11,35 @@ UpdateVisual();
 
     public TMP_Text volumeText;
 
-    public void UpdateVisual()
+    [Header("Visual")]
+    public Image recipienteImage;
+
+    public Sprite spriteNormal;
+    public Sprite spriteCheio;
+
+    public Vector3 posicaoOriginal;
+
+    void Start()
     {
-        volumeText.text =
-            currentVolume + "/" + capacity;
+        posicaoOriginal = transform.position;
+    }
+    void Update()
+    {
+        UpdateVisual();
     }
 
+    public void UpdateVisual()
+    {
+        volumeText.text = currentVolume + "/" + capacity;
 
-
-void valoresAleatorios(){
-
-
-    
-
-}
+        if (currentVolume >= capacity)
+        {
+            recipienteImage.sprite = spriteCheio;
+        }
+        else
+        {
+            recipienteImage.sprite = spriteNormal;
+        }
+    }
 
 }

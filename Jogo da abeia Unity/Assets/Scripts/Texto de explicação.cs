@@ -25,22 +25,30 @@ public class IntroFase : MonoBehaviour
             case "Fase 1":
                 textoIntro.text =
                     "FASE 1\n\n" +
-                    "Colete os pólens da floresta\n" +
-                    "antes que o tempo acabe.";
+                    "Colete os pólens da floresta,\n" +
+                    "e entregue eles na colmeia,\n" +
+                    "antes que o tempo acabe.\n\n" +
+
+                    "Movimentação: W, A, D";
                 break;
 
             case "Fase 3":
                 textoIntro.text =
-                    "FASE 2\n\n" +
-                    "Organize a quantidade de mel nos potes\n" +
-                    "use poucos movimentos possíveis.";
+                    "FASE 2\n" +
+                    "Organize a quantidade necessária\n" +
+                    "de mel para cada favo\n\n" +
+
+                    "Navegação: A e D\n" +
+                    "Selecionar: espaço\n\n" +
+
+                    "Cuidado com a quantidade de movimentos";
                 break;
 
-            case "Fase 4":
+            case "Fase 4 - v2":
                 textoIntro.text =
                     "FASE 3\n\n" +
-                    "Atravesse o labirinto para entregar o mel\n" +
-                    "para a abelha rainha antes\n" + "que o tempo acabe.";
+                    "Encontre e colete todos os\n méis perdidos pela colmeia\n\n" +
+                    "Movimentação: W, A, D";
                 break;
 
             case "EndGame":

@@ -81,7 +81,7 @@ public class GameController : MonoBehaviour
         // CONDIÇÃO DE VITÓRIA POR SCORE
         if (TotalScore >= 12)
         {
-            FinalizarFase("PARABÉNS VOCÊ COLETOU TODOS OS POLENS!");
+            FinalizarFase("PARABÉNS! Agora podemos começar a fazer um\n mel delicioso");
         }
     }
 
@@ -103,7 +103,7 @@ public class GameController : MonoBehaviour
 {
     endText.gameObject.SetActive(true);
 
-    if (mensagemFinal == "PARABÉNS VOCÊ COLETOU TODOS OS POLENS!")
+    if (mensagemFinal == "PARABÉNS! Agora podemos começar a fazer um\n mel delicioso")
     {
         endText.text = mensagemFinal;
     }
@@ -118,7 +118,7 @@ public class GameController : MonoBehaviour
 }
 
         // Só troca de fase se venceu
-        if (mensagemFinal == "PARABÉNS VOCÊ COLETOU TODOS OS POLENS!")
+        if (mensagemFinal == "PARABÉNS! Agora podemos começar a fazer um\n mel delicioso")
         {
             StartCoroutine(CarregarIntro());
         }

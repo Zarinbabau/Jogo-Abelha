@@ -1481,7 +1481,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: "PARAB\xC9NS! Agora podemos come\xE7ar a fazer um \nmel delicioso "
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1490,7 +1490,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
+    rgba: 4294967295
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -1547,7 +1547,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -142.60187, y: 0, z: -365.80948, w: 0}
+  m_margin: {x: -174.37004, y: 0, z: -571.913, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -1561,6 +1561,38 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 407531418}
   m_CullTransparentMesh: 1
+--- !u!1 &416889032
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 416889033}
+  m_Layer: 0
+  m_Name: InstaWin
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &416889033
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 416889032}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -6.5, y: -3, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1717361470}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &417723556
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2006,6 +2038,71 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1001 &573519905
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 416889033}
+    m_Modifications:
+    - target: {fileID: 2144755451638193461, guid: d69cd2686800a1e4294af5952eace144, type: 3}
+      propertyPath: Score
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 2939975181366172465, guid: d69cd2686800a1e4294af5952eace144, type: 3}
+      propertyPath: m_Name
+      value: Moeda (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5230777905570484439, guid: d69cd2686800a1e4294af5952eace144, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -18.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 5230777905570484439, guid: d69cd2686800a1e4294af5952eace144, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 5230777905570484439, guid: d69cd2686800a1e4294af5952eace144, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5230777905570484439, guid: d69cd2686800a1e4294af5952eace144, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5230777905570484439, guid: d69cd2686800a1e4294af5952eace144, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5230777905570484439, guid: d69cd2686800a1e4294af5952eace144, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5230777905570484439, guid: d69cd2686800a1e4294af5952eace144, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5230777905570484439, guid: d69cd2686800a1e4294af5952eace144, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5230777905570484439, guid: d69cd2686800a1e4294af5952eace144, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5230777905570484439, guid: d69cd2686800a1e4294af5952eace144, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6908657250020319732, guid: d69cd2686800a1e4294af5952eace144, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d69cd2686800a1e4294af5952eace144, type: 3}
 --- !u!1 &604717227
 GameObject:
   m_ObjectHideFlags: 0
@@ -5026,6 +5123,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d69cd2686800a1e4294af5952eace144, type: 3}
+--- !u!4 &1717361470 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5230777905570484439, guid: d69cd2686800a1e4294af5952eace144, type: 3}
+  m_PrefabInstance: {fileID: 573519905}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1753783747
 GameObject:
   m_ObjectHideFlags: 0
@@ -6881,10 +6983,26 @@ PrefabInstance:
       propertyPath: spawnPoint
       value: 
       objectReference: {fileID: 880365190}
+    - target: {fileID: 3781503648093137975, guid: 14b244d8e425c014581f466454dca028, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4233011605274831362, guid: 14b244d8e425c014581f466454dca028, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4818230200254207758, guid: 14b244d8e425c014581f466454dca028, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5746776124336438572, guid: 14b244d8e425c014581f466454dca028, type: 3}
       propertyPath: spawnPoint
       value: 
       objectReference: {fileID: 880365190}
+    - target: {fileID: 6714031789380537730, guid: 14b244d8e425c014581f466454dca028, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6785697265026653217, guid: 14b244d8e425c014581f466454dca028, type: 3}
       propertyPath: m_Name
       value: Abeia
@@ -7086,3 +7204,4 @@ SceneRoots:
   - {fileID: 42226279}
   - {fileID: 861792034}
   - {fileID: 428326686}
+  - {fileID: 416889033}

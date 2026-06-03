@@ -141,9 +141,8 @@ public class Labirinto : MonoBehaviour
             endText.gameObject.SetActive(true);
 
             endText.text =
-                "PARABÉNS!" +
-                "\n\n" +
-                "Você entregou todo o mel!";
+                "PARABÉNS!\n" +
+                "Você conseguiu entregar o mel para a Rainha!";
         }
 
         StartCoroutine(CarregarIntro());

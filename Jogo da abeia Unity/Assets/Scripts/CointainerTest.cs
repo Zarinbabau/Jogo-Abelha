@@ -50,11 +50,26 @@ public class CointainerTest : MonoBehaviour
             Jug j = options[currentIndex].GetComponent<Jug>();
 
             if (selectedJug == null)
+            {
                 selectedJug = j;
+                selectedJug.transform.position =
+                    selectedJug.posicaoOriginal + Vector3.up * 60f;
+            }
             else
             {
-                Transfer(selectedJug, j);
-                selectedJug = null;
+                selectedJug.transform.position =
+                    selectedJug.posicaoOriginal;
+
+                // Clicou novamente no mesmo vaso
+                if (selectedJug == j)
+                {
+                    selectedJug = null;
+                }
+                else
+                {
+                    Transfer(selectedJug, j);
+                    selectedJug = null;
+                }
             }
         }
 
@@ -110,7 +125,7 @@ public class CointainerTest : MonoBehaviour
              gerador.currentLevelIndex == 1 ? "Médio" : "Difícil");
 
         objetivoText.text =
-            "Objetivo: Deixe os potes na seguinte ordem\n" +
+            "Objetivo: Deixe os potes na seguinte ordem          " +
             string.Join(" | ", targetState);
     }
 
