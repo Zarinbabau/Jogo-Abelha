@@ -145,7 +145,7 @@ public class Labirinto : MonoBehaviour
                 "Você conseguiu entregar o mel para a Rainha!";
         }
 
-        StartCoroutine(CarregarIntro());
+        StartCoroutine(CarregarEndGame());
     }
 
     // =====================================
@@ -181,16 +181,14 @@ public class Labirinto : MonoBehaviour
     }
 
     // =====================================
-    // CARREGA INTRO
+    // CARREGA ENDGAME
     // =====================================
 
-    IEnumerator CarregarIntro()
-    {
-        IntroFase.proximaFase = proximaCena.name;
-
+    IEnumerator CarregarEndGame()
+    {    
         yield return new WaitForSecondsRealtime(2f);
 
-        SceneManager.LoadScene("Intro");
+        SceneManager.LoadScene("EndGame");
     }
 
     // =====================================

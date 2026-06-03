@@ -50,11 +50,6 @@ public class IntroFase : MonoBehaviour
                     "Encontre e colete todos os\n méis perdidos pela colmeia\n\n" +
                     "Movimentação: W, A, D";
                 break;
-
-            case "EndGame":
-                textoIntro.text =
-                    "Parabéns!!\n\n" + "Você completou todo\n" + "o caminho do mel!!";
-                break;
         }
     }
 

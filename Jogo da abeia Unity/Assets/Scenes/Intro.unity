@@ -420,8 +420,8 @@ MonoBehaviour:
   m_text: "FASE 2\r\nOrganize a quantidade necess\xE1ria\nde mel para cada favo\n\r\nNavega\xE7\xE3o:
     A e D\nSelecionar: espa\xE7o\r\n\nCuidado com a quantidade de movimentos"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2361650a55c4047109f55e4fda4d7fde, type: 2}
+  m_sharedMaterial: {fileID: 4664984743407038437, guid: 2361650a55c4047109f55e4fda4d7fde, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

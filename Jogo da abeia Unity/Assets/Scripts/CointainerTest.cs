@@ -125,7 +125,7 @@ public class CointainerTest : MonoBehaviour
              gerador.currentLevelIndex == 1 ? "Médio" : "Difícil");
 
         objetivoText.text =
-            "Objetivo: Deixe os potes na seguinte ordem          " +
+            "Deixe os potes na seguinte ordem\n" +
             string.Join(" | ", targetState);
     }
 
@@ -169,7 +169,7 @@ public class CointainerTest : MonoBehaviour
         MoverPotes = false;
 
         endPanel.SetActive(true);
-        endText.text = "DERROTA!\n\nTentativa falhou.";
+        endText.text = "DERROTA!\n\nTente novamente.";
 
         StartCoroutine(ReiniciarFase());
     }
