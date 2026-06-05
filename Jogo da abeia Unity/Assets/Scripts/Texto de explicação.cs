@@ -13,6 +13,9 @@ public class IntroFase : MonoBehaviour
 
     void Start()
     {
+        Debug.Log("===== INTRO INICIADA =====");
+        Debug.Log("Próxima fase: '" + proximaFase + "'");
+
         MostrarTexto();
 
         StartCoroutine(CarregarFase());
@@ -28,7 +31,6 @@ public class IntroFase : MonoBehaviour
                     "Colete os pólens da floresta,\n" +
                     "e entregue eles na colmeia,\n" +
                     "antes que o tempo acabe.\n\n" +
-
                     "Movimentação: W, A, D";
                 break;
 
@@ -37,18 +39,21 @@ public class IntroFase : MonoBehaviour
                     "FASE 2\n" +
                     "Organize a quantidade necessária\n" +
                     "de mel para cada favo\n\n" +
-
                     "Navegação: A e D\n" +
-                    "Selecionar: espaço\n\n" +
-
+                    "Selecionar: Espaço\n\n" +
                     "Cuidado com a quantidade de movimentos";
                 break;
 
             case "Fase 4 - v2":
                 textoIntro.text =
                     "FASE 3\n\n" +
-                    "Encontre e colete todos os\n méis perdidos pela colmeia\n\n" +
+                    "Encontre e colete todos os\nméis perdidos pela colmeia\n\n" +
                     "Movimentação: W, A, D";
+                break;
+
+            default:
+                Debug.LogError("Nome de fase não reconhecido: '" + proximaFase + "'");
+                textoIntro.text = "Erro ao carregar a próxima fase.";
                 break;
         }
     }
@@ -57,14 +62,19 @@ public class IntroFase : MonoBehaviour
     {
         float tempoDeEspera = 5f;
 
-        // Tempo menor para tela final
         if (proximaFase == "EndGame")
         {
             tempoDeEspera = 2.5f;
         }
 
-        yield return new WaitForSeconds(tempoDeEspera);
+        Debug.Log("Esperando " + tempoDeEspera + " segundos...");
+
+        yield return new WaitForSecondsRealtime(tempoDeEspera);
+
+        Debug.Log("Tentando carregar a cena: '" + proximaFase + "'");
 
         SceneManager.LoadScene(proximaFase);
+
+        Debug.Log("Comando LoadScene executado.");
     }
 }

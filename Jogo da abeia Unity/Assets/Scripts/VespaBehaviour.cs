@@ -23,20 +23,37 @@ public class VespaBehaviour : MonoBehaviour
     {
         startPosition = transform.position;
 
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        Player p = FindFirstObjectByType<Player>();
 
-        if (player != null)
+        if (p != null)
         {
-            lookTarget = player.transform;
+            lookTarget = p.transform;
+            Debug.Log("Player encontrado pelo componente.");
         }
         else
         {
-            Debug.LogError("Nenhum objeto com a tag 'Player' foi encontrado.");
+            Debug.LogWarning("Player não encontrado no Start.");
         }
     }
 
     void Update()
     {
+        // Se ainda não encontrou o jogador, tenta novamente
+        if (lookTarget == null)
+        {
+            Player p = FindFirstObjectByType<Player>();
+
+            if (p != null)
+            {
+                lookTarget = p.transform;
+                Debug.Log("Player encontrado pelo componente.");
+            }
+            else
+            {
+                Debug.LogWarning("Player ainda não encontrado.");
+            }
+        }
+
         // Sempre olha para o jogador
         LookAtPlayer();
 
@@ -49,14 +66,17 @@ public class VespaBehaviour : MonoBehaviour
                 speed * Time.deltaTime
             );
 
-            float distance = Vector2.Distance(
-                transform.position,
-                areaCenter.position
-            );
-
-            if (distance > areaRadius)
+            if (areaCenter != null)
             {
-                StopChasing();
+                float distance = Vector2.Distance(
+                    transform.position,
+                    areaCenter.position
+                );
+
+                if (distance > areaRadius)
+                {
+                    StopChasing();
+                }
             }
         }
         else
@@ -72,31 +92,37 @@ public class VespaBehaviour : MonoBehaviour
 
     private void LookAtPlayer()
     {
-        if (lookTarget == null ||
-            frente == null ||
-            vespaVisual == null)
+        if (lookTarget == null)
+        {
+            Debug.LogError("lookTarget NULL");
+            return;
+        }
+
+        if (frente == null)
+        {
+            Debug.LogError("frente NULL");
+            return;
+        }
+
+        if (vespaVisual == null)
+        {
+            Debug.LogError("vespaVisual NULL");
+            return;
+        }
+
+        if (lookTarget == null || vespaVisual == null)
             return;
 
-        // Calcula a direção usando a posição da cabeça
         Vector2 direction =
-            (Vector2)(lookTarget.position - frente.position);
+            (Vector2)(lookTarget.position - transform.position);
 
         float angle =
             Mathf.Atan2(direction.y, direction.x) *
             Mathf.Rad2Deg;
 
-        // Se a arte da vespa foi desenhada olhando para a direita
         vespaVisual.rotation =
-     Quaternion.Euler(0f, 0f, angle - 90f);
+            Quaternion.Euler(0f, 0f, angle - 90f);
 
-        /*
-         * Se a cabeça não ficar alinhada,
-         * teste uma destas opções:
-         *
-         * angle + 90f
-         * angle - 90f
-         * angle + 180f
-         */
     }
 
     public void SetTarget(

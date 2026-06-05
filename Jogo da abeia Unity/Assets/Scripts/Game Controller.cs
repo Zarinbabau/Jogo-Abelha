@@ -6,11 +6,13 @@ using System.Collections;
 public class GameController : MonoBehaviour
 {
     public static GameController instance;
+
+    [Header("Referências")]
     public Player player;
     public InventoryUI inventoryUI;
 
     [Header("Pontuação")]
-    public int TotalScore;
+    public int TotalScore = 0;
     public TMP_Text scoreText;
 
     [Header("Tempo")]
@@ -21,8 +23,7 @@ public class GameController : MonoBehaviour
     public TMP_Text endText;
 
     [Header("Próxima fase")]
-    [SerializeField] private Object proximaCena;
-
+    [SerializeField] private string proximaCena = "Fase 3";
 
     private bool faseTerminada = false;
 
@@ -38,12 +39,12 @@ public class GameController : MonoBehaviour
         if (endText != null)
             endText.gameObject.SetActive(false);
 
-        // AQUI LIGA O INVENTÁRIO COM O PLAYER
         if (inventoryUI != null && player != null)
         {
             inventoryUI.Init(player);
         }
-        Debug.Log("Init UI chamando...");
+
+        Debug.Log("GameController iniciado.");
     }
 
     void Update()
@@ -56,7 +57,7 @@ public class GameController : MonoBehaviour
         if (tempoDeFase <= 0)
         {
             tempoDeFase = 0;
-            FinalizarFase("TEMPO ESGOTADO");
+            FinalizarFase(false);
         }
 
         AtualizarTimer();
@@ -64,6 +65,9 @@ public class GameController : MonoBehaviour
 
     void AtualizarTimer()
     {
+        if (timerText == null)
+            return;
+
         int minutos = Mathf.FloorToInt(tempoDeFase / 60);
         int segundos = Mathf.FloorToInt(tempoDeFase % 60);
 
@@ -73,84 +77,98 @@ public class GameController : MonoBehaviour
 
     public void AddScore(int valor)
     {
-        if (faseTerminada) return;
+        if (faseTerminada)
+            return;
 
         TotalScore += valor;
+
         UpdateScoreText();
 
-        // CONDIÇÃO DE VITÓRIA POR SCORE
         if (TotalScore >= 12)
         {
-            FinalizarFase("PARABÉNS! Agora podemos começar a fazer um\n mel delicioso");
+            FinalizarFase(true);
         }
     }
 
-    public void UpdateScoreText()
+    void UpdateScoreText()
     {
-        scoreText.text = TotalScore.ToString() + "/12";
+        if (scoreText != null)
+        {
+            scoreText.text = TotalScore + "/12";
+        }
     }
 
-    void FinalizarFase(string mensagemFinal)
+    void FinalizarFase(bool venceu)
     {
-        if (faseTerminada) return;
+        if (faseTerminada)
+            return;
 
         faseTerminada = true;
 
-        // Impede o jogador de se mover
-        FindFirstObjectByType<Player>().TravarMovimento();
+        Debug.Log("FinalizarFase");
+
+        Player p = FindFirstObjectByType<Player>();
+
+        if (p != null)
+        {
+            p.TravarMovimento();
+        }
+        else
+        {
+            Debug.LogWarning("Player não encontrado.");
+        }
 
         if (endText != null)
-{
-    endText.gameObject.SetActive(true);
+        {
+            endText.gameObject.SetActive(true);
 
-    if (mensagemFinal == "PARABÉNS! Agora podemos começar a fazer um\n mel delicioso")
-    {
-        endText.text = mensagemFinal;
-    }
-    else
-    {
-        endText.text =
-            mensagemFinal + "\n\n" +
-            "Pólens entregues: " +
-            TotalScore.ToString();
-        StartCoroutine(ReiniciarFase());
-    }
-}
+            if (venceu)
+            {
+                endText.text =
+                    "PARABÉNS! Agora podemos começar a fazer um\nmel delicioso";
+            }
+            else
+            {
+                endText.text =
+                    "TEMPO ESGOTADO\n\nPólens entregues: " + TotalScore;
+            }
+        }
 
-        // Só troca de fase se venceu
-        if (mensagemFinal == "PARABÉNS! Agora podemos começar a fazer um\n mel delicioso")
+        if (venceu)
         {
             StartCoroutine(CarregarIntro());
         }
-
         else
         {
-            Time.timeScale = 0f;
+            StartCoroutine(ReiniciarFase());
         }
-
     }
-    
+
     IEnumerator CarregarIntro()
     {
-        // Define qual será a próxima fase
-        IntroFase.proximaFase = proximaCena.name;
+        Debug.Log("Coroutine iniciada.");
 
-        // Espera 2 segundos mostrando a mensagem
+        Time.timeScale = 1f;
+
+        IntroFase.proximaFase = proximaCena;
+
+        Debug.Log("Próxima fase: " + IntroFase.proximaFase);
+
         yield return new WaitForSecondsRealtime(2f);
 
-        // Abre a cena de introdução
+        Debug.Log("Carregando Intro");
+
         SceneManager.LoadScene("Intro");
     }
 
     IEnumerator ReiniciarFase()
-{
-    yield return new WaitForSecondsRealtime(2f);
+    {
+        yield return new WaitForSecondsRealtime(2f);
 
-    Time.timeScale = 1f;
+        Time.timeScale = 1f;
 
-    SceneManager.LoadScene(
-        SceneManager.GetActiveScene().name
-    );
-}
-
+        SceneManager.LoadScene(
+            SceneManager.GetActiveScene().name
+        );
+    }
 }

@@ -1408,7 +1408,7 @@ MonoBehaviour:
   tempoDeFase: 135
   timerText: {fileID: 1981644346}
   endText: {fileID: 407531420}
-  proximaCena: {fileID: 102900000, guid: f95bd8c44d2f34f418d992c6f358d731, type: 3}
+  proximaCena: Fase 3
 --- !u!4 &406531654
 Transform:
   m_ObjectHideFlags: 0

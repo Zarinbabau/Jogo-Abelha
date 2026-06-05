@@ -1,30 +1,19 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using System.Collections;
 
-public class EndGameText : MonoBehaviour
+public class VoltarMenu : MonoBehaviour
 {
-    [SerializeField] private float tempoParaMenu = 5f;
+    public string nomeMenu = "Menu";
 
-    void Start()
+    private void OnTriggerExit2D(Collider2D other)
     {
-        Debug.Log("EndGame iniciou");
-
-        StartCoroutine(VoltarAoMenu());
-    }
-
-    IEnumerator VoltarAoMenu()
-    {
-        Debug.Log("Timer começou");
-
-        // Tempo real (ignora Time.timeScale)
-        yield return new WaitForSecondsRealtime(tempoParaMenu);
-
-        Debug.Log("Voltando ao menu");
-
-        // Garante que o tempo volte ao normal
-        Time.timeScale = 1f;
-
-        SceneManager.LoadScene("Menu");
+        if (other.CompareTag("Player"))
+        {
+            // Saiu pela esquerda do trigger
+            if (other.transform.position.x < transform.position.x)
+            {
+                SceneManager.LoadScene(nomeMenu);
+            }
+        }
     }
 }

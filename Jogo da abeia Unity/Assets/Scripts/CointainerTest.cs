@@ -26,7 +26,7 @@ public class CointainerTest : MonoBehaviour
     public GameObject[] options;
 
     [Header("Próxima cena")]
-    [SerializeField] private Object proximaCena;
+    [SerializeField] private string proximaCena = "Fase 4 - v2";
 
     public int[] targetState;
 
@@ -38,7 +38,9 @@ public class CointainerTest : MonoBehaviour
     {
         UpdateSelection();
         AtualizarMovimentos();
-        endPanel.SetActive(false);
+
+        if (endPanel != null)
+            endPanel.SetActive(false);
     }
 
     void Update()
@@ -155,8 +157,11 @@ public class CointainerTest : MonoBehaviour
             return;
         }
 
-        endPanel.SetActive(true);
-        endText.text = "VITÓRIA!\n\nVocê completou todas as fases!";
+        if (endPanel != null)
+            endPanel.SetActive(true);
+
+        if (endText != null)
+            endText.text = "VITÓRIA!\n\nVocê completou todas as fases!";
 
         StartCoroutine(CarregarIntro());
     }
@@ -168,8 +173,11 @@ public class CointainerTest : MonoBehaviour
         hasWon = true;
         MoverPotes = false;
 
-        endPanel.SetActive(true);
-        endText.text = "DERROTA!\n\nTente novamente.";
+        if (endPanel != null)
+            endPanel.SetActive(true);
+
+        if (endText != null)
+            endText.text = "DERROTA!\n\nTente novamente.";
 
         StartCoroutine(ReiniciarFase());
     }
@@ -213,7 +221,13 @@ public class CointainerTest : MonoBehaviour
 
     IEnumerator CarregarIntro()
     {
-        IntroFase.proximaFase = proximaCena.name;
+        Debug.Log("Coroutine Fase 3 iniciada");
+
+        Time.timeScale = 1f;
+
+        IntroFase.proximaFase = proximaCena;
+
+        Debug.Log("Próxima fase: " + IntroFase.proximaFase);
 
         yield return new WaitForSecondsRealtime(2f);
 
